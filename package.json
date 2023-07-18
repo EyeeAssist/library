@@ -4,9 +4,10 @@
   "description": "",
   "main": "public/index.js",
   "scripts": {
-    "compile": "npx tsc",
+    "compile-ts": "npx tsc",
     "start": "npx live-server ./public",
-    "test": "jest"
+    "test": "jest",
+    "compile-prod": "npx webpack"
   },
   "jest": {
     "transform": {

@@ -1,10 +1,15 @@
 import { CssClasses } from "./styles/css-classes.js";
+import { ZoomService, OptionsZoom } from "./zoom-module/zoom_service.js";
 export class Zoom {
     constructor(enableZoomOptions = false) {
         this.enableZoomOptions = enableZoomOptions;
         this.zoomStatus = false;
         this.active_message = `<div id="zoom-status" class="zoom-message-txtbox">On</div>`;
         this.deactive_message = `<div id="zoom-status" class="zoom-message-txtbox">Off</div>`;
+        this.toogleZoom = (event) => {
+            this.zoomService.to(new OptionsZoom(event.x, event.y, 10));
+        };
+        this.zoomService = new ZoomService();
     }
     activeZoom(screenReaderActive, event) {
         if (!this.enableZoomOptions) {
@@ -30,9 +35,6 @@ export class Zoom {
             const zoom_message = document.getElementById("zoom-status");
             zoom_message === null || zoom_message === void 0 ? void 0 : zoom_message.remove();
         }, 2000);
-        status ? body.addEventListener("click", this.toogleZoom) : body.removeEventListener("click", this.toogleZoom);
-    }
-    toogleZoom() {
-        console.log("Zoom in");
+        status ? body.addEventListener('click', this.toogleZoom) : body.removeEventListener("click", this.toogleZoom);
     }
 }

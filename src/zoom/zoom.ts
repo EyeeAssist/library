@@ -1,4 +1,4 @@
-import { CssClasses } from "./styles/css-classes.js"
+import { CssClasses } from "./styles/css-zoom-classes.js"
 import { ZoomService, OptionsZoom } from "./zoom-module/zoom_service.js"
 
 export class Zoom {

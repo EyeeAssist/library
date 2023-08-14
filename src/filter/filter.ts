@@ -11,8 +11,7 @@ export class Filter {
     this.showFilterOptions()
   }
 
-  public startFilter(event: Event) {
-    console.log('Evento', event)
+  startFilter = (event: Event) => {
     const component = event.target as HTMLElement;
     this.filterService.aplicarFiltro(component.textContent);
   }
@@ -31,7 +30,7 @@ export class Filter {
     if (this.filterViewOn) {
       var filter_buffer_instance: HTMLElement | null = document.getElementById("filter_buffer");
       if (filter_buffer_instance == null) {
-        console.log('No hay instancia del buffer de opciones.')
+        console.error('No hay instancia del buffer de opciones.')
         return;
       }
       filter_buffer_instance.remove();
@@ -53,15 +52,13 @@ export class Filter {
        "colors",
        "filter"
      ];
-     console.log('Creando buffer')
-
     var bufferListDivElement = document.createElement('div')
     bufferListDivElement.className = 'filter-list-buffer'
     bufferListDivElement.id = 'filter_buffer'
 
     var filter_button: HTMLElement | null = document.getElementById("filter_button");
     if (filter_button == null){
-      console.log('No se creo el boton correctamente.')
+      console.error('No se creo el boton correctamente.')
       return;
     }
     filter_button.appendChild(bufferListDivElement)
@@ -75,10 +72,9 @@ export class Filter {
     filterList.forEach((filter) => {
       var filter_buffer_instance = document.getElementById("filter_buffer");
       if (filter_buffer_instance == null) {
-        console.log('No hay instancia del buffer de opciones.')
+        console.error('No hay instancia del buffer de opciones.')
         return;
       }
-      console.log(this)
       filter_buffer_instance.appendChild(this.buildFilterOption(filter))
     });
 

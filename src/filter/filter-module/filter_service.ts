@@ -3,7 +3,11 @@ export class FilterService {
 
   private active_filter = false;
 
-  public aplicarFiltro(filtro: string) {
+  public aplicarFiltro(filtro: string | null) {
+    if (filtro == null) {
+      console.error('Error al aplicar los filtros, la opcion no se pintada correctamente')
+      return
+    }
     if (!this.active_filter) {
       this.toggleTest("colorBlindness", filtro);
     } else {

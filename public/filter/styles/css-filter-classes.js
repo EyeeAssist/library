@@ -26,7 +26,7 @@ export class CssFilterClasses {
     static addFilterStyleClass() {
         const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
         const filter_button = `
-        .filter-button {
+        .filter_button {
           position: fixed;
           top: 20px;
           right: 20px;

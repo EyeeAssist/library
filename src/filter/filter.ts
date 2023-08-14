@@ -11,21 +11,23 @@ export class Filter {
     this.showFilterOptions()
   }
 
-  public startFilter(event: any) {
-    const component = event.target;
+  public startFilter(event: Event) {
+    console.log('Evento', event)
+    const component = event.target as HTMLElement;
     this.filterService.aplicarFiltro(component.textContent);
   }
   public showFilterOptions() {
     const divElement = document.createElement('div')
     divElement.textContent = '0'
-    divElement.className = 'filter-button'
-    divElement.id = 'filter-button'
+    divElement.className = 'filter_button'
+    divElement.id = 'filter_button'
     divElement.addEventListener('click', this.showFilterOptionsList)
 
     CssFilterClasses.addFilterStyleClass()
     document.body.appendChild(divElement)
   }
-  public showFilterOptionsList() {
+
+  showFilterOptionsList = () => {
     if (this.filterViewOn) {
       var filter_buffer_instance: HTMLElement | null = document.getElementById("filter_buffer");
       if (filter_buffer_instance == null) {
@@ -52,15 +54,17 @@ export class Filter {
        "filter"
      ];
      console.log('Creando buffer')
-    const filter_buffer = `
-      <div class="filter-list-buffer" id="filter_buffer"></div>
-    `;
+
+    var bufferListDivElement = document.createElement('div')
+    bufferListDivElement.className = 'filter-list-buffer'
+    bufferListDivElement.id = 'filter_buffer'
+
     var filter_button: HTMLElement | null = document.getElementById("filter_button");
     if (filter_button == null){
       console.log('No se creo el boton correctamente.')
       return;
     }
-    filter_button.insertAdjacentHTML("beforeend", filter_buffer);
+    filter_button.appendChild(bufferListDivElement)
     CssFilterClasses.addFilterBufferStyleClass();
 
     /*colorOptions.forEach((option) => {
@@ -74,17 +78,20 @@ export class Filter {
         console.log('No hay instancia del buffer de opciones.')
         return;
       }
-      filter_buffer_instance.insertAdjacentHTML("beforeend", this.buildFilterOption(filter));
+      console.log(this)
+      filter_buffer_instance.appendChild(this.buildFilterOption(filter))
     });
 
     CssFilterClasses.addFilterOptionsStyleClass();
     this.filterViewOn = !this.filterViewOn;
   }
 
-  public buildFilterOption(filterOption: string) {
-    return `
-      <div class="filter-option" onClick="startFilter(event)">${filterOption}</div>
-    `;
+  private buildFilterOption(filterOption: string): HTMLDivElement {
+    var optionDivElement = document.createElement('div')
+    optionDivElement.className = 'filter-option'
+    optionDivElement.addEventListener('click', this.startFilter)
+    optionDivElement.textContent = filterOption
+    return optionDivElement
   }
 
 }

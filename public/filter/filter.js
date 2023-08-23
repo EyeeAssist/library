@@ -1,5 +1,5 @@
-import { FilterService } from "./filter-module/filter_service";
-import { CssFilterClasses } from "./styles/css-filter-classes";
+import { FilterService } from "./filter-module/filter_service.js";
+import { CssFilterClasses } from "./styles/css-filter-classes.js";
 export class Filter {
     constructor(enableFilter = false) {
         this.enableFilter = enableFilter;

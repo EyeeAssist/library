@@ -1,5 +1,5 @@
-import { CssClasses } from "./styles/css-zoom-classes";
-import { ZoomService, OptionsZoom } from "./zoom-module/zoom_service";
+import { CssClasses } from "./styles/css-zoom-classes.js";
+import { ZoomService, OptionsZoom } from "./zoom-module/zoom_service.js";
 export class Zoom {
     constructor(enableZoomOptions = false) {
         this.enableZoomOptions = enableZoomOptions;

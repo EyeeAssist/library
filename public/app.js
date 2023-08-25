@@ -6,5 +6,6 @@ const FilterObject = new Filter(true);
 const ScreenReaderObject = new ScreenReader(true);
 document.addEventListener("keydown", (event) => {
     console.log(event.key);
-    ZoomObject.activeZoom(false, event);
+    ZoomObject.activeZoom(ScreenReaderObject.status(), event);
+    ScreenReaderObject.keybindsScreenReader(event);
 });

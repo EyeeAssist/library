@@ -18,5 +18,5 @@ Version de node:
 - Para integrar con tu pagina web agregue en el body:
 
 ```
-<script src="https://cdn.jsdelivr.net/gh/EyeeAssist/library@master/public/bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/EyeeAssist/library@main/public/bundle.js"></script>
 ````

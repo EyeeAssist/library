@@ -1,5 +1,5 @@
-import { CssClasses } from "./styles/css-zoom-classes.js"
-import { ZoomService, OptionsZoom } from "./zoom-module/zoom_service.js"
+import { CssClasses } from "./styles/css-zoom-classes"
+import { ZoomService, OptionsZoom } from "./zoom-module/zoom_service"
 
 export class Zoom {
   private zoomStatus: boolean = false

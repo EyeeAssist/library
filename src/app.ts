@@ -1,6 +1,6 @@
-import { Filter } from './filter/filter.js'
-import { ScreenReader } from './screen_reader/screen_reader.js'
-import { Zoom } from './zoom/zoom.js'
+import { Filter } from './filter/filter'
+import { ScreenReader } from './screen_reader/screen_reader'
+import { Zoom } from './zoom/zoom'
 
 
 const ZoomObject: Zoom = new Zoom(true)

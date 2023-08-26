@@ -17,8 +17,8 @@ export class Zoom {
     if(!this.enableZoomOptions) {
       return
     }
-    CssClasses.addZoomMessageTextBoxClass()
     if(!screenReaderActive && event.ctrlKey === true && event.key.toLowerCase() === "backspace") {
+      CssClasses.addZoomMessageTextBoxClass()
       this.initialClickEvent(document.body)
     }
   }

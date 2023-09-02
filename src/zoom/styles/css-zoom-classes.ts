@@ -11,12 +11,13 @@ export class CssClasses{
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 9999;
-          background-color: #243c5a;
-          color: #ffffff;
+          background-color: #FFFF00;
+          color: #000000;
           font-size: 20rem;
           text-align: center;
           width: 80%;
           height: 80%;
+          font-family: Arial, sans-serif;
       }`;
     styleSheet.insertRule(cssRule, styleSheet.cssRules.length)
   }

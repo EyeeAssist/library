@@ -18,8 +18,13 @@ export class ScreenReader {
   }
 
   talk = (text: string, cancel = true) => {
+    console.log('Hablando', text)
     cancel ? this.synth.cancel() : " ";
     this.synth.speak(new SpeechSynthesisUtterance(text));
+  }
+
+  cancelTalk = () => {
+    this.synth.cancel()
   }
 
   private sayWelcome() {
@@ -40,7 +45,18 @@ export class ScreenReader {
     this.moveBetweenContent(event)
     this.moveBetweenLinks(event)
   }
-
+  private readChilds(article: Node){
+    if(article.nodeName == 'IMG'){
+      let img = article as HTMLImageElement 
+      this.talk('Imagen de ' + img.alt, false)
+    }
+    if(article.nodeType == Node.TEXT_NODE && article.textContent?.trim()){
+      this.talk(article.textContent, false)
+    }
+    article.childNodes.forEach(( child ) => {
+      this.readChilds(child)
+    })
+  }
   private moveBetweenContent(event: KeyboardEvent){
     let tags = document.getElementsByTagName("article");
     if(tags.length == 0) {
@@ -53,10 +69,8 @@ export class ScreenReader {
     ) {
       this.articleIndex  += 1
       this.selectedArticle = tags[this.articleIndex];
-      if(this.selectedArticle.textContent != null) {
-        this.selectedArticle.focus()
-        this.talk(this.selectedArticle.textContent);
-      }
+      this.cancelTalk()
+      this.readChilds(this.selectedArticle)
       if (this.articleIndex === tags.length - 1) {
         this.articleIndex = 0;
       } 
@@ -78,10 +92,8 @@ export class ScreenReader {
         }
       }
       this.selectedArticle = tags[this.articleIndex];
-      if(this.selectedArticle.textContent != null) {
-        this.selectedArticle.focus()
-        this.talk(this.selectedArticle.textContent);
-      }
+      this.cancelTalk()
+      this.readChilds(this.selectedArticle)
     }
   }
 

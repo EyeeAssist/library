@@ -16,10 +16,15 @@ export class Filter {
     this.filterService.aplicarFiltro(component.textContent);
   }
   public showFilterOptions() {
+    const image = document.createElement('img')
+    image.src = "https://github.com/EyeeAssist/docs/blob/develop/src/assets/logo.png?raw=true"
+    image.style.width = '50px'
+    image.style.borderRadius = '50%'
     const divElement = document.createElement('div')
-    divElement.textContent = '0'
     divElement.className = 'filter_button'
     divElement.id = 'filter_button'
+    divElement.appendChild(image)
+
     divElement.addEventListener('click', this.showFilterOptionsList)
 
     CssFilterClasses.addFilterStyleClass()

@@ -9,8 +9,8 @@ export class CssFilterClasses {
             right: 20px;
             transform: translateY(-50%);
             z-index: 9999;
-            background-color: #243c5a;
-            color: #ffffff;
+            background-color: #FFFF00;
+            color: #000000;
         }
     `;
     styleSheet.insertRule(filter_buffer, styleSheet.cssRules.length);

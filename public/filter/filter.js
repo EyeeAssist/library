@@ -1,5 +1,5 @@
-import { FilterService } from "./filter-module/filter_service.js";
-import { CssFilterClasses } from "./styles/css-filter-classes.js";
+import { FilterService } from "./filter-module/filter_service";
+import { CssFilterClasses } from "./styles/css-filter-classes";
 export class Filter {
     constructor(enableFilter = false) {
         this.enableFilter = enableFilter;
@@ -63,10 +63,13 @@ export class Filter {
         this.showFilterOptions();
     }
     showFilterOptions() {
+        const image = document.createElement('img');
+        image.src = "https://github.com/EyeeAssist/docs/blob/develop/src/assets/logo.png";
         const divElement = document.createElement('div');
         divElement.textContent = '0';
         divElement.className = 'filter_button';
         divElement.id = 'filter_button';
+        divElement.appendChild(image);
         divElement.addEventListener('click', this.showFilterOptionsList);
         CssFilterClasses.addFilterStyleClass();
         document.body.appendChild(divElement);

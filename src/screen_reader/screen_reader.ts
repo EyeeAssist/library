@@ -48,6 +48,7 @@ export class ScreenReader {
   private readChilds(article: Node){
     if(article.nodeName == 'IMG'){
       let img = article as HTMLImageElement 
+      //image.src
       this.talk('Imagen de ' + img.alt, false)
     }
     if(article.nodeType == Node.TEXT_NODE && article.textContent?.trim()){

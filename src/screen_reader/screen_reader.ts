@@ -7,6 +7,7 @@ export class ScreenReader {
   private linkIndex = 0
   constructor(
     private useScreenReader: boolean = false,
+    private token: string = ""
   ) {
     if (!this.useScreenReader) {
       return;
@@ -18,7 +19,6 @@ export class ScreenReader {
   }
 
   talk = (text: string, cancel = true) => {
-    console.log('Hablando', text)
     cancel ? this.synth.cancel() : " ";
     this.synth.speak(new SpeechSynthesisUtterance(text));
   }
@@ -26,7 +26,6 @@ export class ScreenReader {
   cancelTalk = () => {
     this.synth.cancel()
   }
-
   private sayWelcome() {
     this.talk(
       "Hola bienvenido a la pagina X, si desea leer las acciones de la pagina presione control y enter"
@@ -45,18 +44,40 @@ export class ScreenReader {
     this.moveBetweenContent(event)
     this.moveBetweenLinks(event)
   }
-  private readChilds(article: Node){
+  private async getImage(src : string){
+    const response = await fetch(src)
+    return response
+  }
+  private async getDescription(blob : Blob) {
+      const formData = new FormData();
+      formData.append('file', blob, 'imagen.jpg');
+      const options = {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Authorization': 'Bearer ' + this.token
+        }
+      };
+      const responsePost = await fetch('http://localhost:8000/caption', options);
+      return responsePost
+  }
+  private async readChilds(article: Node){
     if(article.nodeName == 'IMG'){
+      this.talk('Imagen encontrada', false)
       let img = article as HTMLImageElement 
-      //image.src
-      this.talk('Imagen de ' + img.alt, false)
+      const response = await this.getImage(img.src)
+      const blob = await response.blob();
+      this.talk('describiendo imagen', false)
+      const description = await this.getDescription(blob)
+      const jsonResponse = await description.json();
+      this.talk('Imagen de ' + jsonResponse.message[0], false)
     }
     if(article.nodeType == Node.TEXT_NODE && article.textContent?.trim()){
       this.talk(article.textContent, false)
     }
-    article.childNodes.forEach(( child ) => {
-      this.readChilds(child)
-    })
+    for (const child of Array.from(article.childNodes)) {
+      await this.readChilds(child);
+    }
   }
   private moveBetweenContent(event: KeyboardEvent){
     let tags = document.getElementsByTagName("article");

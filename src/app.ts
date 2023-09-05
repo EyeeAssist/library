@@ -5,7 +5,7 @@ import { Zoom } from './zoom/zoom'
 
 const ZoomObject: Zoom = new Zoom(true)
 const FilterObject: Filter = new Filter(true)
-const ScreenReaderObject: ScreenReader = new ScreenReader(true)
+const ScreenReaderObject: ScreenReader = new ScreenReader(true, 'akljnv13bvi2vfo0b0bw')
 
 document.addEventListener("keydown", (event) => {
   console.log(event.key)

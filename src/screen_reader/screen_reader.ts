@@ -13,10 +13,10 @@ export class ScreenReader {
     if (!this.useScreenReader) {
       return;
     }
-    // let tag = document.createElement('script');
-    // tag.src = "https://www.youtube.com/iframe_api";
-    // let firstScriptTag = document.getElementsByTagName('script')[0];
-    // firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    let tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    let firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
   }
 
   public status(){
@@ -82,10 +82,14 @@ export class ScreenReader {
     return ""
   }
   private async readChilds(article: Node){
-    if(article.nodeName == 'IFRAME') {
-      let iframe = article as HTMLIFrameElement
-      if (iframe) {
-      }
+    let htmlElement = article as HTMLElement
+    if(htmlElement.className == 'video_player_eyeeassist') {
+      var player = new YT.Player(htmlElement.id, {
+        videoId: htmlElement.id,
+      });
+      setTimeout(() => {
+        player.playVideo()
+      }, 5000)
     }
     if(article.nodeName == 'IMG'){
       this.talk('Imagen encontrada', false)

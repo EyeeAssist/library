@@ -13,6 +13,10 @@ export class ScreenReader {
     if (!this.useScreenReader) {
       return;
     }
+    // let tag = document.createElement('script');
+    // tag.src = "https://www.youtube.com/iframe_api";
+    // let firstScriptTag = document.getElementsByTagName('script')[0];
+    // firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
   }
 
   public status(){
@@ -78,6 +82,11 @@ export class ScreenReader {
     return ""
   }
   private async readChilds(article: Node){
+    if(article.nodeName == 'IFRAME') {
+      let iframe = article as HTMLIFrameElement
+      if (iframe) {
+      }
+    }
     if(article.nodeName == 'IMG'){
       this.talk('Imagen encontrada', false)
       let img = article as HTMLImageElement 
@@ -97,7 +106,6 @@ export class ScreenReader {
       }
     }
     if(article.nodeType == Node.TEXT_NODE && article.textContent?.trim()){
-      console.log('Leyendo ', article.textContent)
       this.talk(article.textContent, false)
     }
     for (const child of Array.from(article.childNodes)) {

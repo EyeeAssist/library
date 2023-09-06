@@ -5,6 +5,7 @@ export class ScreenReader {
   private selectedLink: HTMLElement | null = null
   private articleIndex = -1
   private linkIndex = 0
+  private controller: AbortController = new AbortController
   constructor(
     private useScreenReader: boolean = false,
     private token: string = ""
@@ -24,7 +25,10 @@ export class ScreenReader {
   }
 
   cancelTalk = () => {
-    this.synth.cancel()
+    if(this.controller) {
+      this.controller.abort()
+    }
+    this.talk("")
   }
   private sayWelcome() {
     this.talk(
@@ -49,30 +53,51 @@ export class ScreenReader {
     return response
   }
   private async getDescription(blob : Blob) {
-      const formData = new FormData();
-      formData.append('file', blob, 'imagen.jpg');
-      const options = {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Authorization': 'Bearer ' + this.token
-        }
-      };
-      const responsePost = await fetch('http://localhost:8000/caption', options);
-      return responsePost
+    this.controller = new AbortController()
+    const formData = new FormData();
+    formData.append('file', blob, 'imagen.jpg');
+    const options = {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Authorization': 'Bearer ' + this.token
+      },
+      signal : this.controller.signal
+    };
+    const response = await fetch('http://localhost:8000/caption', options)
+      .catch((error) => {
+       if (error.name === 'AbortError') {
+         console.error(error)
+       }
+      })
+
+    if (response != undefined) {
+      const description = await response.json()
+      return description.message[0]
+    }
+    return ""
   }
   private async readChilds(article: Node){
     if(article.nodeName == 'IMG'){
       this.talk('Imagen encontrada', false)
       let img = article as HTMLImageElement 
-      const response = await this.getImage(img.src)
-      const blob = await response.blob();
-      this.talk('describiendo imagen', false)
-      const description = await this.getDescription(blob)
-      const jsonResponse = await description.json();
-      this.talk('Imagen de ' + jsonResponse.message[0], false)
+      if(img.alt != "") {
+        this.talk("")
+        this.talk('Imagen de '+ img.alt, false)
+      } else {
+        const response = await this.getImage(img.src)
+        const blob = await response.blob();
+        this.talk('describiendo imagen', false)
+        const description = await this.getDescription(blob)
+        if (description != "") {
+          this.talk('Imagen de ' + description, false)
+        } else{
+          this.talk('No se pudo generar una descripcion para la imagen encontrada.', false)
+        }
+      }
     }
     if(article.nodeType == Node.TEXT_NODE && article.textContent?.trim()){
+      console.log('Leyendo ', article.textContent)
       this.talk(article.textContent, false)
     }
     for (const child of Array.from(article.childNodes)) {

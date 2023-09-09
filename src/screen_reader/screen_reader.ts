@@ -211,12 +211,12 @@ export class ScreenReader {
     }
   }
   private cancelReader(event: KeyboardEvent) {
-    if(event.key.toLowerCase() === "escape"){
+    if(this.useScreenReader && event.key.toLowerCase() === "escape"){
       this.talk("")
     }
   }
   private reRead(event: KeyboardEvent) {
-    if(event.ctrlKey === true && event.key.toLowerCase() === "backspace"){
+    if(this.useScreenReader && event.ctrlKey === true && event.key.toLowerCase() === "backspace"){
       if(this.selectedArticle != null) {
         if(this.selectedArticle.textContent != null) { 
           this.talk(this.selectedArticle.textContent);

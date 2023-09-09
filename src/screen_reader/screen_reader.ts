@@ -6,6 +6,7 @@ export class ScreenReader {
   private articleIndex = -1
   private linkIndex = 0
   private controller: AbortController = new AbortController
+
   constructor(
     private useScreenReader: boolean = false,
     private token: string = ""
@@ -20,6 +21,12 @@ export class ScreenReader {
   }
 
   public status(){
+    return this.useScreenReader
+  }
+  public toggleStatus() {
+    this.useScreenReader = !this.useScreenReader
+  }
+  public enable() {
     return this.screenReaderStatus
   }
 
@@ -82,11 +89,8 @@ export class ScreenReader {
     return ""
   }
   private async readChilds(article: Node){
-    let htmlElement = article as HTMLElement
-    if(htmlElement.className == 'video_player_eyeeassist') {
-      var player = new YT.Player(htmlElement.id, {
-        videoId: htmlElement.id,
-      });
+    if(article.nodeName == 'IFRAME') {
+      var player = new YT.Player(article as HTMLIFrameElement, {});
       setTimeout(() => {
         player.playVideo()
       }, 5000)
@@ -157,7 +161,7 @@ export class ScreenReader {
   }
 
   private activeScreenReader(event : KeyboardEvent) {
-    if(event.ctrlKey === true && event.key.toLowerCase() === " "){
+    if( this.useScreenReader && event.ctrlKey === true && event.key.toLowerCase() === " "){
       if(!this.screenReaderStatus){
         this.sayWelcome()
       }else {

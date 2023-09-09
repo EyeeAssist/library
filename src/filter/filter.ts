@@ -8,7 +8,13 @@ export class Filter {
     private enableFilter: boolean = false
   ) {
     this.filterService = new FilterService()
-    this.showFilterOptions()
+    //this.showFilterOptions()
+  }
+  public status() {
+    return this.enableFilter
+  }
+  public toggleStatus() {
+    this.enableFilter = !this.enableFilter
   }
 
   startFilter = (event: Event) => {

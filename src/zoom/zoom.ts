@@ -12,6 +12,12 @@ export class Zoom {
   ) {
       this.zoomService = new ZoomService()
   }
+  public status() {
+    return this.enableZoomOptions
+  }
+  public toogleStatus() {
+    this.enableZoomOptions = !this.enableZoomOptions
+  }
 
   public activeZoom(screenReaderActive: boolean, event : KeyboardEvent) {
     if(!this.enableZoomOptions) {

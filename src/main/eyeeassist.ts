@@ -69,7 +69,7 @@ export class Eyeeassist {
     divElement.id = 'fly_menu'
     divElement.className = 'fly_menu'
     divElement.style.top = this.initMessageClose? '30px' : '70px'
-    divElement.appendChild(CssEyeeassistClasses.svgHuman('#9dd08b'))
+    divElement.appendChild(CssEyeeassistClasses.svgHuman('#006400'))
     divElement.addEventListener('click', this.showOptions)
     document.body.appendChild(divElement)
   }
@@ -150,19 +150,19 @@ export class Eyeeassist {
     divElementContainer = CssEyeeassistClasses.messageContent(divElementContainer)
 
     let spanElement = document.createElement('span')
-    spanElement.textContent = 'Mensaje de accesibilidad'
+    spanElement.textContent = 'Esta página cuenta con herramientas de accesibilidad. Para activar y/o desactivar estas herramientas presiona cmd + A o haz click en el botón'
 
     let buttonElement = document.createElement('button')
     buttonElement = CssEyeeassistClasses.closeButtom(buttonElement)
     buttonElement.addEventListener('click', this.cerrarModal)
 
-    buttonElement.appendChild(CssEyeeassistClasses.svgCloseButtom('#000000'))
+    buttonElement.appendChild(CssEyeeassistClasses.svgCloseButtom('#006400'))
 
     divElementContainer.appendChild(spanElement)
+    divElementContainer.appendChild(CssEyeeassistClasses.svgHuman('#006400', '20', '20'))
 
     divElement.appendChild(divElementContainer)
     divElement.appendChild(buttonElement)
-
     document.body.insertBefore(divElement, document.body.firstChild)
   }
 

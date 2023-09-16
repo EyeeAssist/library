@@ -95,7 +95,7 @@ export class CssEyeeassistClasses {
     const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
     const buffer_options = `
         .buffer_options {
-            position: absolute;
+            position: fixed;
             top: 130px;
             right: 70px;
             border-radius: 10px;

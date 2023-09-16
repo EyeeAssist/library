@@ -4,6 +4,10 @@ export class CssFilterClasses {
     const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
     const filter_buffer = `
         .filter-list-buffer {
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          align-content: center;
         }
     `;
     styleSheet.insertRule(filter_buffer, styleSheet.cssRules.length);

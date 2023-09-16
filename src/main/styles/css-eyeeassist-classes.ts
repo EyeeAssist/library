@@ -47,6 +47,7 @@ export class CssEyeeassistClasses {
           color: #006400;
           text-align: center;
           line-height: 50px;
+          flex-wrap: wrap;
           cursor: pointer;
           display: flex;
           align-content: center;
@@ -94,11 +95,13 @@ export class CssEyeeassistClasses {
     const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
     const buffer_options = `
         .buffer_options {
-            position: fixed;
-            top: 20%;
-            right: 10%;
+            position: absolute;
+            top: 130px;
+            right: 70px;
             border-radius: 10px;
-            transform: translateY(-50%);
+            height: auto; 
+            max-height: 100%;
+            overflow-y: auto; 
             z-index: 9999;
             background-color: #F5F5DC;
             color: #006400;

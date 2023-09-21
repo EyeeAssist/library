@@ -90,10 +90,11 @@ export class ScreenReader {
   }
   private async readChilds(article: Node){
     if(article.nodeName == 'IFRAME') {
-      var player = new YT.Player(article as HTMLIFrameElement, {});
+      var player = new YT.Player('single-video', {
+      })
       setTimeout(() => {
         player.playVideo()
-      }, 5000)
+      }, 1000)
     }
     if(article.nodeName == 'IMG'){
       this.talk('Imagen encontrada', false)

@@ -1,3 +1,5 @@
+import { VideoProcesor } from "./video-procesor";
+
 export class ScreenReader {
   private synth = window.speechSynthesis;
   private screenReaderStatus: boolean = false
@@ -6,6 +8,8 @@ export class ScreenReader {
   private articleIndex = -1
   private linkIndex = 0
   private controller: AbortController = new AbortController
+  private videoProcesor: VideoProcesor | null = null 
+  private tags : HTMLElement[] = [] 
 
   constructor(
     private useScreenReader: boolean = false,
@@ -18,6 +22,7 @@ export class ScreenReader {
     tag.src = "https://www.youtube.com/iframe_api";
     let firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    this.videoProcesor = new VideoProcesor(false, this.talk)
   }
 
   public status(){
@@ -58,6 +63,7 @@ export class ScreenReader {
     this.activeScreenReader(event)
     this.moveBetweenContent(event)
     this.moveBetweenLinks(event)
+    this.videoProcesor?.startAudioDescription(event)
   }
   private async getImage(src : string){
     const response = await fetch(src)
@@ -90,11 +96,9 @@ export class ScreenReader {
   }
   private async readChilds(article: Node){
     if(article.nodeName == 'IFRAME') {
-      var player = new YT.Player('single-video', {
-      })
-      setTimeout(() => {
-        player.playVideo()
-      }, 1000)
+      this.talk('Video encontrado, precione shift mas k para iniciar el video con audio descripcion')
+      this.videoProcesor?.toggleStatus()
+      this.videoProcesor?.createPlayer(article)
     }
     if(article.nodeName == 'IMG'){
       this.talk('Imagen encontrada', false)
@@ -122,8 +126,7 @@ export class ScreenReader {
     }
   }
   private moveBetweenContent(event: KeyboardEvent){
-    let tags = document.getElementsByTagName("article");
-    if(tags.length == 0) {
+    if(this.tags.length == 0) {
       return
     }
     if (
@@ -131,13 +134,10 @@ export class ScreenReader {
       event.ctrlKey === true &&
       event.key.toLowerCase() === "arrowright"
     ) {
-      this.articleIndex  += 1
-      this.selectedArticle = tags[this.articleIndex];
+      let selectedArticle = this.tags.shift()
+      this.tags.push(selectedArticle as HTMLElement)
       this.cancelTalk()
-      this.readChilds(this.selectedArticle)
-      if (this.articleIndex === tags.length - 1) {
-        this.articleIndex = 0;
-      } 
+      this.readChilds(selectedArticle as Node)
     }
 
     if (
@@ -145,27 +145,20 @@ export class ScreenReader {
       event.ctrlKey === true &&
       event.key.toLowerCase() === "arrowleft"
     ) {
-      if(this.articleIndex === -1) {
-        this.articleIndex += 1;
-      } else {
-        if(this.articleIndex == 0){
-          this.articleIndex = tags.length - 1;
-        }
-        else{
-          this.articleIndex -= 1;
-        }
-      }
-      this.selectedArticle = tags[this.articleIndex];
+      let selectedArticle = this.tags.pop()
+      this.tags.unshift(selectedArticle as HTMLElement)
       this.cancelTalk()
-      this.readChilds(this.selectedArticle)
+      this.readChilds(selectedArticle as Node)
     }
   }
 
   private activeScreenReader(event : KeyboardEvent) {
     if( this.useScreenReader && event.ctrlKey === true && event.key.toLowerCase() === " "){
       if(!this.screenReaderStatus){
+        this.tags = this.convertToHtmlElementsArray(document.getElementsByTagName("article"));
         this.sayWelcome()
       }else {
+        this.tags = []
         this.sayGoodbay()
       }
       this.screenReaderStatus = !this.screenReaderStatus
@@ -224,5 +217,12 @@ export class ScreenReader {
         }
       }
     }
+  }
+  private convertToHtmlElementsArray(tags: HTMLCollectionOf<HTMLElement>): HTMLElement[] {
+    let result: HTMLElement[] = []
+    for(const tag of tags) {
+      result.push(tag)
+    }
+    return result
   }
 }

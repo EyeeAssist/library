@@ -8,7 +8,8 @@ export class Filter {
     private enableFilter: boolean = false
   ) {
     this.filterService = new FilterService()
-    //this.showFilterOptions()
+    CssFilterClasses.addFilterBufferStyleClass();
+    CssFilterClasses.addFilterOptionsStyleClass();
   }
   public status() {
     return this.enableFilter
@@ -19,7 +20,8 @@ export class Filter {
 
   startFilter = (event: Event) => {
     const component = event.target as HTMLElement;
-    this.filterService.aplicarFiltro(component.textContent);
+    var filtro = component.textContent?.toLowerCase()
+    this.filterService.aplicarFiltro(filtro as string);
   }
   public showFilterOptions() {
     const image = document.createElement('img')
@@ -38,26 +40,25 @@ export class Filter {
   }
 
   showFilterOptionsList = () => {
-    if (this.filterViewOn) {
+    if (!this.enableFilter) {
       var filter_buffer_instance: HTMLElement | null = document.getElementById("filter_buffer");
       if (filter_buffer_instance == null) {
         console.error('No hay instancia del buffer de opciones.')
         return;
       }
       filter_buffer_instance.remove();
-      this.filterViewOn = !this.filterViewOn;
-      return;
+      return "";
     }
-    const filterList = [
-      "protanopia",
-      "protanomaly",
-      "deuteranopia",
-      "deuteranomaly",
-      "tritanopia",
-      "tritanomaly",
-      "achromatopsia",
-      "achromatomaly",
-      "grayscale",
+    const filterList: FilterOption[] = [
+      { id: "protanopia", name: "Protanopia"},
+      { id: "protanomaly", name: "Protanomaly"},
+      { id: "deuteranopia", name: "Deuteronopia"},
+      { id: "deuteranomaly", name: "Deuteranomaly"},
+      { id: "tritanopia", name: "Tritanopia"},
+      { id: "tritanomaly", name: "Tritanomaly"},
+      { id: "achromatopsia", name: "Achromatopsia"},
+      { id: "achromatomaly", name: "Achromatomaly"},
+      { id: "grayscale", name: "Grayscale"},
     ];
      const colorOptions = [
        "colors",
@@ -67,38 +68,43 @@ export class Filter {
     bufferListDivElement.className = 'filter-list-buffer'
     bufferListDivElement.id = 'filter_buffer'
 
-    var filter_button: HTMLElement | null = document.getElementById("filter_button");
-    if (filter_button == null){
-      console.error('No se creo el boton correctamente.')
-      return;
-    }
-    filter_button.appendChild(bufferListDivElement)
-    CssFilterClasses.addFilterBufferStyleClass();
-
     /*colorOptions.forEach((option) => {
       const filter_buffer = document.getElementById("filter_buffer");
       filter_buffer.insertAdjacentHTML("beforeend", buildColorOptions(option));
     })*/
 
     filterList.forEach((filter) => {
-      var filter_buffer_instance = document.getElementById("filter_buffer");
-      if (filter_buffer_instance == null) {
-        console.error('No hay instancia del buffer de opciones.')
-        return;
-      }
-      filter_buffer_instance.appendChild(this.buildFilterOption(filter))
+      bufferListDivElement.appendChild(this.buildFilterOption(filter))
     });
-
-    CssFilterClasses.addFilterOptionsStyleClass();
-    this.filterViewOn = !this.filterViewOn;
+    return bufferListDivElement
   }
 
-  private buildFilterOption(filterOption: string): HTMLDivElement {
+  private buildFilterOption(filterOption: FilterOption): HTMLDivElement {
     var optionDivElement = document.createElement('div')
     optionDivElement.className = 'filter-option'
+    optionDivElement.style.display = 'flex'
+    optionDivElement.id = filterOption.id + '_option'
     optionDivElement.addEventListener('click', this.startFilter)
-    optionDivElement.textContent = filterOption
+
+    const radioContainer = document.createElement('div')
+    const radioButton = document.createElement('input')
+    radioButton.type = "radio"
+    radioButton.style.margin = '0'
+    radioContainer.style.marginLeft = '6px'
+
+    const optionText = document.createElement('span')
+    optionText.textContent = filterOption.name
+    optionText.style.marginLeft = '12px'
+
+    radioContainer.append(radioButton)
+    optionDivElement.append(radioContainer)
+    optionDivElement.append(optionText)
     return optionDivElement
   }
 
+}
+
+interface FilterOption {
+  id: string
+  name: string
 }

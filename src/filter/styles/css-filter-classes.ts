@@ -4,13 +4,10 @@ export class CssFilterClasses {
     const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
     const filter_buffer = `
         .filter-list-buffer {
-            position: fixed;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            z-index: 9999;
-            background-color: #FFFF00;
-            color: #000000;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          align-content: center;
         }
     `;
     styleSheet.insertRule(filter_buffer, styleSheet.cssRules.length);

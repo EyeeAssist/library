@@ -9,13 +9,17 @@ export class CssEyeeassistClasses {
     div.style.top = '0'
     div.style.left = '0'
     div.style.width = '100%'
-    div.style.backgroundColor = '#f8f8f8'
+    div.style.backgroundColor = '#F5F5DC'
     div.style.zIndex = '999'
+    div.style.color = '#006400'
     return div
   }
   public static messageContent(div: HTMLDivElement) {
     div.style.textAlign = 'center'
     div.style.flex = '1'
+    div.style.display = 'flex'
+    div.style.alignContent = 'center'
+    div.style.justifyContent = 'center'
     return div
   }
   public static closeButtom(button: HTMLButtonElement) {
@@ -27,6 +31,7 @@ export class CssEyeeassistClasses {
     button.style.width = '50px'
     button.style.height = '50px'
     button.style.alignSelf = 'flex-end'
+    button.style.color = '#006400'
     return button
   }
   public static addFlyMenuStyle() {
@@ -35,54 +40,39 @@ export class CssEyeeassistClasses {
         .fly_menu {
           position: fixed;
           right: 70px;
-          width: 50px;
-          height: 50px;
+          width: 72px;
+          height: 72px;
           border-radius: 50%;
-          background-color: #243c5a;
-          color: #ffffff;
-          fill: #ffffff;
-          stroke: #ffffff;
+          background-color: #F5F5DC;
+          color: #006400;
           text-align: center;
           line-height: 50px;
+          flex-wrap: wrap;
           cursor: pointer;
+          display: flex;
+          align-content: center;
+          justify-content: center;
           z-index: 9999;
         }
     `;
     styleSheet.insertRule(fly_menu, styleSheet.cssRules.length);
   }
-  public static svgHuman(color: string){
+  public static svgHuman(color: string, width: string='34', height: string='38'){
       const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+      // Establece los atributos del elemento SVG
+      svgElement.setAttribute("width", width);
+      svgElement.setAttribute("height", height);
+      svgElement.setAttribute("viewBox", "0 0 34 38");
       svgElement.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-      svgElement.setAttribute("viewBox", "0 0 24 24");
-      svgElement.setAttribute("fill", "none");
-      svgElement.setAttribute("stroke", color);
-      svgElement.setAttribute("stroke-width", "2");
-      svgElement.setAttribute("stroke-linecap", "round");
-      svgElement.setAttribute("stroke-linejoin", "round");
 
-      // Crear círculo
-      const circleElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      circleElement.setAttribute("cx", "12");
-      circleElement.setAttribute("cy", "5");
-      circleElement.setAttribute("r", "1");
+      // Crea un elemento de ruta dentro del SVG
+      const pathElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      pathElement.setAttribute("d", "M33.5 13.5H22.5V37.3333H18.8333V26.3333H15.1667V37.3333H11.5V13.5H0.5V9.83332H33.5M17 0.666656C17.9725 0.666656 18.9051 1.05296 19.5927 1.7406C20.2804 2.42823 20.6667 3.36086 20.6667 4.33332C20.6667 5.30578 20.2804 6.23841 19.5927 6.92605C18.9051 7.61368 17.9725 7.99999 17 7.99999C16.0275 7.99999 15.0949 7.61368 14.4073 6.92605C13.7196 6.23841 13.3333 5.30578 13.3333 4.33332C13.3333 2.29832 14.965 0.666656 17 0.666656Z");
+      pathElement.setAttribute("fill", color);
 
-      // Crear path 1
-      const path1Element = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path1Element.setAttribute("d", "M9 20l3-6 3 6");
-
-      // Crear path 2
-      const path2Element = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path2Element.setAttribute("d", "M6 8l6 2 6-2");
-
-      // Crear path 3
-      const path3Element = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path3Element.setAttribute("d", "M12 10v4");
-
-      // Agregar elementos al SVG
-      svgElement.appendChild(circleElement);
-      svgElement.appendChild(path1Element);
-      svgElement.appendChild(path2Element);
-      svgElement.appendChild(path3Element);
+      // Agrega la ruta al elemento SVG
+      svgElement.appendChild(pathElement);
 
       return svgElement
   }
@@ -106,13 +96,15 @@ export class CssEyeeassistClasses {
     const buffer_options = `
         .buffer_options {
             position: fixed;
-            top: 20%;
-            right: 10%;
+            top: 130px;
+            right: 70px;
             border-radius: 10px;
-            transform: translateY(-50%);
+            height: auto; 
+            max-height: 100%;
+            overflow-y: auto; 
             z-index: 9999;
-            background-color: #243c5a;
-            color: #9dd08b;
+            background-color: #F5F5DC;
+            color: #006400;
         }
     `;
     styleSheet.insertRule(buffer_options, styleSheet.cssRules.length);

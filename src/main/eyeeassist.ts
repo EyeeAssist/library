@@ -69,28 +69,25 @@ export class Eyeeassist {
     divElement.id = 'fly_menu'
     divElement.className = 'fly_menu'
     divElement.style.top = this.initMessageClose? '30px' : '70px'
-    divElement.appendChild(CssEyeeassistClasses.svgHuman('#9dd08b'))
+    divElement.appendChild(CssEyeeassistClasses.svgHuman('#006400'))
     divElement.addEventListener('click', this.showOptions)
     document.body.appendChild(divElement)
   }
 
-  buildOption = (optionName: string, status: boolean) => {
+  buildOption = (opcion: Opciones) => {
     const option = document.createElement('div')
-    option.className = 'option_menu_eyeeassist'
+    var optionContainer = document.createElement('div')
+    option.id = 'option_menu_eyeassist_' + opcion.name 
     const optionNameElement = document.createElement('div')
-    optionNameElement.textContent = optionName
+    optionNameElement.textContent = opcion.display_name
     optionNameElement.style.paddingRight = '20px'
-    option.appendChild(optionNameElement)
 
     const toggleSwitch = document.createElement('div');
     toggleSwitch.className = 'toggle-switch'
-    toggleSwitch.id = 'toggleSwitch' + optionName
+    toggleSwitch.id = 'toggleSwitch' + opcion.name
     const toggleSwitchCircle = document.createElement('div')
     toggleSwitchCircle.className = "toggle-switch-circle"
     toggleSwitch.appendChild(toggleSwitchCircle)
-    if (status) {
-      toggleSwitch.classList.toggle('active')
-    }
     toggleSwitch.addEventListener('click', (event: Event) => {
       switch(toggleSwitch.id) {
         case 'toggleSwitchZoom':
@@ -99,6 +96,8 @@ export class Eyeeassist {
           break
         case 'toggleSwitchColors':
           this.FilterObject.toggleStatus()
+          var optionsList = this.FilterObject.showFilterOptionsList()
+          optionContainer.parentElement?.append(optionsList as Node)
           localStorage.setItem('filterStatus', JSON.stringify(this.FilterObject.status()))
           break
         case 'toggleSwitchReader':
@@ -108,7 +107,20 @@ export class Eyeeassist {
       }
       toggleSwitch.classList.toggle('active')
     })
-    option.appendChild(toggleSwitch)
+    optionContainer.className = 'option_menu_eyeeassist'
+    optionContainer.append(optionNameElement)
+    optionContainer.append(toggleSwitch)
+    
+    option.append(optionContainer)
+
+    if (opcion.status) {
+      toggleSwitch.classList.toggle('active')
+      if (opcion.name == "Colors") {
+          console.log('Agregando colores')
+          var optionsList = this.FilterObject.showFilterOptionsList()
+          optionContainer.parentElement?.append(optionsList as Node)
+      }
+    }
 
     return option
   }
@@ -125,12 +137,12 @@ export class Eyeeassist {
     bufferListOptions.className = 'buffer_options'
     //Crear opciones
     const opciones: Opciones[] = [
-      { name: 'Zoom', status: this.ZoomObject.status()},
-      { name: 'Colors', status: this.FilterObject.status()},
-      { name: 'Reader', status: this.ScreenReaderObject.status()},
+      { name: 'Zoom', status: this.ZoomObject.status(), display_name: 'Zoom'},
+      { name: 'Colors', status: this.FilterObject.status(), display_name: 'Filtros de color'},
+      { name: 'Reader', status: this.ScreenReaderObject.status(), display_name: 'Lectura en voz alta'},
     ]
-    opciones.forEach((opcion) => {
-      bufferListOptions.appendChild(this.buildOption(opcion.name, opcion.status))
+    opciones.forEach((opcion : Opciones) => {
+      bufferListOptions.appendChild(this.buildOption(opcion))
     })
 
     document.body.appendChild(bufferListOptions)
@@ -150,19 +162,19 @@ export class Eyeeassist {
     divElementContainer = CssEyeeassistClasses.messageContent(divElementContainer)
 
     let spanElement = document.createElement('span')
-    spanElement.textContent = 'Mensaje de accesibilidad'
+    spanElement.textContent = 'Esta página cuenta con herramientas de accesibilidad. Para activar y/o desactivar estas herramientas presiona cmd + A o haz click en el botón'
 
     let buttonElement = document.createElement('button')
     buttonElement = CssEyeeassistClasses.closeButtom(buttonElement)
     buttonElement.addEventListener('click', this.cerrarModal)
 
-    buttonElement.appendChild(CssEyeeassistClasses.svgCloseButtom('#000000'))
+    buttonElement.appendChild(CssEyeeassistClasses.svgCloseButtom('#006400'))
 
     divElementContainer.appendChild(spanElement)
+    divElementContainer.appendChild(CssEyeeassistClasses.svgHuman('#006400', '20', '20'))
 
     divElement.appendChild(divElementContainer)
     divElement.appendChild(buttonElement)
-
     document.body.insertBefore(divElement, document.body.firstChild)
   }
 
@@ -212,4 +224,5 @@ export class Eyeeassist {
 interface Opciones {
   name : string
   status : boolean
+  display_name: string
 }

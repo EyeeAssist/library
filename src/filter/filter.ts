@@ -104,7 +104,7 @@ export class Filter {
 
 }
 
-interface FilterOption {
+export interface FilterOption {
   id: string
   name: string
 }

@@ -2,6 +2,8 @@ import { Filter } from "../filter/filter"
 import { ScreenReader } from "../screen_reader/screen_reader"
 import { Zoom } from "../zoom/zoom"
 import { CssEyeeassistClasses } from "./styles/css-eyeeassist-classes"
+import { OptionCard } from "./option-card/option-card"
+import { OptionCardStyles } from "./option-card/option-card-styles"
 
 export class Eyeeassist {
   private animacionEnProgreso: boolean = false
@@ -12,7 +14,7 @@ export class Eyeeassist {
   private filterStatus: boolean
   private readerStatus: boolean
 
-  private ZoomObject: Zoom 
+  private ZoomObject: Zoom
   private FilterObject: Filter
   private ScreenReaderObject: ScreenReader
 
@@ -23,29 +25,30 @@ export class Eyeeassist {
     private token: string = ''
   ) {
     const initMessageStatus = localStorage.getItem('initMessageClose');
-    if(initMessageStatus == 'true') {
+    if (initMessageStatus == 'true') {
       this.initMessageClose = true
     }
     CssEyeeassistClasses.toggleSwitchClasses()
     CssEyeeassistClasses.addBufferOptionsClass()
     CssEyeeassistClasses.addFlyMenuStyle()
     CssEyeeassistClasses.addOptionFunctionsClass()
+    CssEyeeassistClasses.overlayStyleClass()
     this.zoomStatus = zoomStatus
     this.filterStatus = filterStatus
     this.readerStatus = readerStatus
 
     const savedZoomStatus = localStorage.getItem('zoomStatus')
-    if(savedZoomStatus) {
+    if (savedZoomStatus) {
       console.log('Hay zoom status guardado', JSON.parse(savedZoomStatus))
       this.zoomStatus = JSON.parse(savedZoomStatus)
     }
     const savedFilterStatus = localStorage.getItem('filterStatus')
-    if(savedFilterStatus) {
+    if (savedFilterStatus) {
       console.log('Hay filter status guardado', JSON.parse(savedFilterStatus))
       this.filterStatus = JSON.parse(savedFilterStatus)
     }
     const savedReaderStatus = localStorage.getItem('readerStatus')
-    if(savedReaderStatus) {
+    if (savedReaderStatus) {
       console.log('Hay reader status guardado', JSON.parse(savedReaderStatus))
       this.readerStatus = JSON.parse(savedReaderStatus)
     }
@@ -64,97 +67,75 @@ export class Eyeeassist {
     })
   }
 
-  private showFlyMenu(){
-    const divElement = document.createElement('div')
-    divElement.id = 'fly_menu'
-    divElement.className = 'fly_menu'
-    divElement.style.top = this.initMessageClose? '30px' : '70px'
-    divElement.appendChild(CssEyeeassistClasses.svgHuman('#006400'))
-    divElement.addEventListener('click', this.showOptions)
-    document.body.appendChild(divElement)
-  }
-
-  buildOption = (opcion: Opciones) => {
-    const option = document.createElement('div')
-    var optionContainer = document.createElement('div')
-    option.id = 'option_menu_eyeassist_' + opcion.name 
-    const optionNameElement = document.createElement('div')
-    optionNameElement.textContent = opcion.display_name
-    optionNameElement.style.paddingRight = '20px'
-
-    const toggleSwitch = document.createElement('div');
-    toggleSwitch.className = 'toggle-switch'
-    toggleSwitch.id = 'toggleSwitch' + opcion.name
-    const toggleSwitchCircle = document.createElement('div')
-    toggleSwitchCircle.className = "toggle-switch-circle"
-    toggleSwitch.appendChild(toggleSwitchCircle)
-    toggleSwitch.addEventListener('click', (event: Event) => {
-      switch(toggleSwitch.id) {
-        case 'toggleSwitchZoom':
-          this.ZoomObject.toogleStatus()
-          localStorage.setItem('zoomStatus', JSON.stringify(this.ZoomObject.status()))
-          break
-        case 'toggleSwitchColors':
-          this.FilterObject.toggleStatus()
-          var optionsList = this.FilterObject.showFilterOptionsList()
-          optionContainer.parentElement?.append(optionsList as Node)
-          localStorage.setItem('filterStatus', JSON.stringify(this.FilterObject.status()))
-          break
-        case 'toggleSwitchReader':
-          this.ScreenReaderObject.toggleStatus()
-          localStorage.setItem('readerStatus', JSON.stringify(this.ScreenReaderObject.status()))
-          break
-      }
-      toggleSwitch.classList.toggle('active')
-    })
-    optionContainer.className = 'option_menu_eyeeassist'
-    optionContainer.append(optionNameElement)
-    optionContainer.append(toggleSwitch)
-    
-    option.append(optionContainer)
-
-    if (opcion.status) {
-      toggleSwitch.classList.toggle('active')
-      if (opcion.name == "Colors") {
-          console.log('Agregando colores')
-          var optionsList = this.FilterObject.showFilterOptionsList()
-          optionContainer.parentElement?.append(optionsList as Node)
-      }
-    }
-
-    return option
-  }
-  showOptions = () => {
-    console.log('Mostrando opciones')
+  showOptionsView = () => {
     if (this.viewOptionsOn) {
-      const bufferListOptions = document.getElementById('buffer_options')
-      bufferListOptions?.remove()
+      const bufferOptions = document.getElementById('overlay-menu-view')
+      bufferOptions?.remove()
       this.viewOptionsOn = !this.viewOptionsOn
       return
     }
-    const bufferListOptions = document.createElement('div')
-    bufferListOptions.id = 'buffer_options'
-    bufferListOptions.className = 'buffer_options'
-    //Crear opciones
+    const divElement = document.createElement('div')
+    divElement.id = 'overlay-menu-view'
+    divElement.className = 'overlay-menu-view'
+
     const opciones: Opciones[] = [
-      { name: 'Zoom', status: this.ZoomObject.status(), display_name: 'Zoom'},
-      { name: 'Colors', status: this.FilterObject.status(), display_name: 'Filtros de color'},
-      { name: 'Reader', status: this.ScreenReaderObject.status(), display_name: 'Lectura en voz alta'},
+      {
+        id: 'zoom',
+        title: 'Activar zoom',
+        subtitle: 'Atajo de teclado [Ctrl + Backspace]',
+        status: this.ZoomObject.status(),
+        toggle: () => { 
+          this.ZoomObject.toogleStatus()
+          localStorage.setItem('zoomStatus', JSON.stringify(this.ZoomObject.status()))
+        },
+        icon: OptionCardStyles.zoomIconSvg()
+      },
+      { id: 'filter',
+        title: 'Aplicar filtros de color',
+        subtitle: '',
+        status: this.FilterObject.status(),
+        toggle: () => { 
+          this.FilterObject.toggleStatus()
+          //var optionsList = this.FilterObject.showFilterOptionsList()
+          //optionContainer.parentElement?.append(optionsList as Node)
+          localStorage.setItem('filterStatus', JSON.stringify(this.FilterObject.status()))
+        },
+        icon: OptionCardStyles.filterIconSvg()},
+      { id: 'voice',
+        title: 'Leer en voz alta',
+        subtitle: 'Atajo de teclado [Ctrl + Space]',
+        status: this.ScreenReaderObject.status(),
+        toggle: () => { 
+          this.ScreenReaderObject.toggleStatus()
+          localStorage.setItem('readerStatus', JSON.stringify(this.ScreenReaderObject.status()))
+        },
+        icon: OptionCardStyles.voiceIconSvg()
+      },
     ]
-    opciones.forEach((opcion : Opciones) => {
-      bufferListOptions.appendChild(this.buildOption(opcion))
+    opciones.forEach((opcion: Opciones) => {
+      const card = new OptionCard(opcion.id, opcion.title, opcion.subtitle, opcion.icon, opcion.status, opcion.toggle)
+      const cardElement = card.getElement()
+      divElement.appendChild(cardElement)
     })
 
-    document.body.appendChild(bufferListOptions)
-
+    document.body.appendChild(divElement)
     this.viewOptionsOn = !this.viewOptionsOn
+  }
+  private showFlyMenu() {
+    const divElement = document.createElement('div')
+    divElement.id = 'fly_menu'
+    divElement.className = 'fly_menu'
+    divElement.style.top = this.initMessageClose ? '30px' : '70px'
+    divElement.appendChild(CssEyeeassistClasses.svgHuman('#006400'))
+    divElement.addEventListener('click', this.showOptionsView)
+    document.body.appendChild(divElement)
   }
 
   private showInitMessage() {
     let divElement = document.createElement('div')
     divElement = CssEyeeassistClasses.mainMessage(divElement)
     divElement.id = 'eyeeasist-initial-message'
-    if(this.initMessageClose) {
+    if (this.initMessageClose) {
       divElement.style.display = 'none'
     }
 
@@ -179,18 +160,18 @@ export class Eyeeassist {
   }
 
   cerrarModal = () => {
-    if(!this.animacionEnProgreso) {
+    if (!this.animacionEnProgreso) {
       const mensaje = document.getElementById('eyeeasist-initial-message')
       const flyMenu = document.getElementById('fly_menu')
 
       this.animacionEnProgreso = true
       // Crea una animación usando la API de animación de CSS
       const animacion = mensaje?.animate([
-          { opacity: 1, transform: 'translateY(0)' },
-          { opacity: 0, transform: 'translateY(-100%)' }
+        { opacity: 1, transform: 'translateY(0)' },
+        { opacity: 0, transform: 'translateY(-100%)' }
       ], {
-          duration: 300, // Duración de la animación en milisegundos
-          easing: 'ease-out' // Tipo de interpolación
+        duration: 300, // Duración de la animación en milisegundos
+        easing: 'ease-out' // Tipo de interpolación
       });
       const flyAnimation = flyMenu?.animate(
         [
@@ -205,14 +186,14 @@ export class Eyeeassist {
 
       if (animacion && flyAnimation) {
         animacion.onfinish = () => {
-            if(mensaje) {
-              mensaje.style.display = 'none'
-            }
-            this.animacionEnProgreso = false
-            localStorage.setItem('initMessageClose', 'true');
+          if (mensaje) {
+            mensaje.style.display = 'none'
+          }
+          this.animacionEnProgreso = false
+          localStorage.setItem('initMessageClose', 'true');
         }
         flyAnimation.onfinish = () => {
-          if(flyMenu) {
+          if (flyMenu) {
             flyMenu.style.top = '30px'
           }
         }
@@ -222,7 +203,10 @@ export class Eyeeassist {
 }
 
 interface Opciones {
-  name : string
-  status : boolean
-  display_name: string
+  id: string
+  title: string
+  subtitle: string
+  status: boolean
+  toggle: Function
+  icon: SVGSVGElement
 }

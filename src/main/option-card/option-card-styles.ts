@@ -103,7 +103,8 @@ export class OptionCardStyles {
           justify-content: center;
           justify-items: center;
           background-color: #F5F5DC;
-          padding: 90px;
+          width: 30%;
+          padding: 50px;
           border-radius: 50px;
           color: #004D00;
         }

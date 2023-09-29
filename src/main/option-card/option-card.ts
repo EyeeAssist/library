@@ -19,6 +19,7 @@ export class OptionCard {
   private createOptionCard() {
     const container  = document.createElement('div')
     container.className = 'option-card-eyeeassist'
+    container.id = this.functionalityId + '-card-option-eyeassist'
     const spanTitle = document.createElement('span')
     spanTitle.textContent = this.title
     spanTitle.style.fontWeight = 'bold'

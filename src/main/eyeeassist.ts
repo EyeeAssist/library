@@ -96,10 +96,11 @@ export class Eyeeassist {
         status: this.FilterObject.status(),
         toggle: (id: string = "") => { 
           this.FilterObject.toggleStatus()
-          //var optionsList = this.FilterObject.showFilterOptionsList()
-          //console.log(id)
-          //const container = document.getElementById(id)
-          //container?.appendChild(optionsList as Node)
+          var optionsList = this.FilterObject.showFilterOptionsList()
+          const container = document.getElementById(id)
+          if(optionsList != "") {
+            container?.appendChild(optionsList as Node)
+          }
           localStorage.setItem('filterStatus', JSON.stringify(this.FilterObject.status()))
         },
         icon: OptionCardStyles.filterIconSvg()},
@@ -118,9 +119,18 @@ export class Eyeeassist {
       const card = new OptionCard(opcion.id, opcion.title, opcion.subtitle, opcion.icon, opcion.status, opcion.toggle)
       const cardElement = card.getElement()
       divElement.appendChild(cardElement)
+      console.log('Creado', opcion.id, opcion.status)
     })
 
     document.body.appendChild(divElement)
+    if(this.FilterObject.status()) {
+        var optionsList = this.FilterObject.showFilterOptionsList()
+        const container = document.getElementById('filter-card-option-eyeassist')
+        console.log(container)
+        if(optionsList != "") {
+          container?.appendChild(optionsList as Node)
+        }
+    }
     this.viewOptionsOn = !this.viewOptionsOn
   }
   private showFlyMenu() {

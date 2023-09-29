@@ -54,9 +54,7 @@ export class CardButton {
 
   changeButtonState = () => {
     const elementCurrent = document.getElementById(this.functionalityId + '-button-eyeassist-' + this.text)
-    console.log(this.functionalityId + '-button-eyeassist-' + this.text, 'Activo:', this.active)
     if(this.active === false) {
-      console.log('Entre activo igual false')
       if(elementCurrent != null) {
         elementCurrent.style.backgroundColor = '#004D00'
         elementCurrent.style.color = '#FFFFFF'
@@ -74,7 +72,7 @@ export class CardButton {
           oposiveElement.style.color = '#004D00'
         }
       }
-      this.toggleToolStatus()
+      this.toggleToolStatus(this.functionalityId + '-card-option-eyeassist')
       this.active = !this.active
       if (this.toggleOposiveButton) {
         this.toggleOposiveButton()

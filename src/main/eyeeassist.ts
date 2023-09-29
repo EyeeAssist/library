@@ -94,10 +94,12 @@ export class Eyeeassist {
         title: 'Aplicar filtros de color',
         subtitle: '',
         status: this.FilterObject.status(),
-        toggle: () => { 
+        toggle: (id: string = "") => { 
           this.FilterObject.toggleStatus()
           //var optionsList = this.FilterObject.showFilterOptionsList()
-          //optionContainer.parentElement?.append(optionsList as Node)
+          //console.log(id)
+          //const container = document.getElementById(id)
+          //container?.appendChild(optionsList as Node)
           localStorage.setItem('filterStatus', JSON.stringify(this.FilterObject.status()))
         },
         icon: OptionCardStyles.filterIconSvg()},

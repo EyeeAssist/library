@@ -172,4 +172,21 @@ export class CssEyeeassistClasses {
         }`
     styleSheet.insertRule(option_functions, styleSheet.cssRules.length);
   }
+  public static overlayStyleClass() {
+    const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
+    const option_functions = `
+        .overlay-menu-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+        }`
+    styleSheet.insertRule(option_functions, styleSheet.cssRules.length);
+
+  }
 }

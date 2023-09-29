@@ -21,6 +21,7 @@ export class Filter {
   startFilter = (event: Event) => {
     const component = event.target as HTMLElement;
     var filtro = component.textContent?.toLowerCase()
+    console.log(filtro)
     this.filterService.aplicarFiltro(filtro as string);
   }
   public showFilterOptions() {
@@ -51,13 +52,8 @@ export class Filter {
     }
     const filterList: FilterOption[] = [
       { id: "protanopia", name: "Protanopia"},
-      { id: "protanomaly", name: "Protanomaly"},
-      { id: "deuteranopia", name: "Deuteronopia"},
-      { id: "deuteranomaly", name: "Deuteranomaly"},
+      { id: "deuteranopia", name: "Deuteranopia"},
       { id: "tritanopia", name: "Tritanopia"},
-      { id: "tritanomaly", name: "Tritanomaly"},
-      { id: "achromatopsia", name: "Achromatopsia"},
-      { id: "achromatomaly", name: "Achromatomaly"},
       { id: "grayscale", name: "Grayscale"},
     ];
      const colorOptions = [
@@ -68,14 +64,43 @@ export class Filter {
     bufferListDivElement.className = 'filter-list-buffer'
     bufferListDivElement.id = 'filter_buffer'
 
-    /*colorOptions.forEach((option) => {
-      const filter_buffer = document.getElementById("filter_buffer");
-      filter_buffer.insertAdjacentHTML("beforeend", buildColorOptions(option));
-    })*/
+    var description = document.createElement('span')
+    description.textContent = 'Seleccione un filtro para distinguir mejor los siguientes colores:'
+    description.style.marginBottom = '5px'
+    bufferListDivElement.appendChild(description)
 
+    const colors = [
+      '#FFFF00', // Amarillo
+      '#FF0000', // Rojo
+      '#FFA500', // Naranja
+      '#FFFF00', // Amarillo
+      '#008000', // Verde
+      '#0000FF', // Azul
+      '#4B0082', // Índigo
+      '#9400D3', // Violeta
+      '#FFFF00'  // Amarillo
+    ]
+                                    
     filterList.forEach((filter) => {
       bufferListDivElement.appendChild(this.buildFilterOption(filter))
     });
+
+    var colorContainer = document.createElement('div')
+    colorContainer.style.display = 'flex'
+    colorContainer.style.flexDirection = 'row'
+    colorContainer.style.alignContent = 'center'
+    colorContainer.style.alignItems = 'center'
+    colorContainer.style.justifyItems = 'center'
+    colorContainer.style.justifyContent= 'center'
+    colors.forEach((color) => {
+                var colorBox = document.createElement('div')
+                colorBox.style.display = 'block'
+                colorBox.style.width = '20px'
+                colorBox.style.height = '25px'
+                colorBox.style.backgroundColor = color
+                colorContainer.appendChild(colorBox)
+                })
+    bufferListDivElement.appendChild(colorContainer)
     return bufferListDivElement
   }
 
@@ -104,7 +129,7 @@ export class Filter {
 
 }
 
-interface FilterOption {
+export interface FilterOption {
   id: string
   name: string
 }

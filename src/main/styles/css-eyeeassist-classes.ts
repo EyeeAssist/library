@@ -18,8 +18,11 @@ export class CssEyeeassistClasses {
     div.style.textAlign = 'center'
     div.style.flex = '1'
     div.style.display = 'flex'
+    div.style.flexDirection = 'row'
     div.style.alignContent = 'center'
     div.style.justifyContent = 'center'
+    div.style.justifyItems = 'center'
+    div.style.alignItems = 'center'
     return div
   }
   public static closeButtom(button: HTMLButtonElement) {
@@ -30,7 +33,6 @@ export class CssEyeeassistClasses {
     button.style.cursor = 'pointer'
     button.style.width = '50px'
     button.style.height = '50px'
-    button.style.alignSelf = 'flex-end'
     button.style.color = '#006400'
     return button
   }

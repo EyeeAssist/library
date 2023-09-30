@@ -107,6 +107,7 @@ export class OptionCardStyles {
           padding: 50px;
           border-radius: 50px;
           color: #004D00;
+          font-size: 25px;
         }
     `;
     styleSheet.insertRule(optionCardStyle, styleSheet.cssRules.length);

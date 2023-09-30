@@ -11,8 +11,8 @@ export class CssClasses{
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 9999;
-          background-color: #FFFF00;
-          color: #000000;
+          background-color: #F5F5DC;
+          color: #004D00;
           font-size: 20rem;
           text-align: center;
           width: 80%;

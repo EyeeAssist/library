@@ -62,6 +62,7 @@ export class Eyeeassist {
     this.showFlyMenu()
     document.addEventListener("keydown", (event) => {
       console.log(event.key)
+      event.preventDefault()
       this.ZoomObject.activeZoom(this.ScreenReaderObject.enable(), event)
       this.ScreenReaderObject.keybindsScreenReader(event)
     })
@@ -137,7 +138,7 @@ export class Eyeeassist {
     const divElement = document.createElement('div')
     divElement.id = 'fly_menu'
     divElement.className = 'fly_menu'
-    divElement.style.top = this.initMessageClose ? '30px' : '70px'
+    divElement.style.top = this.initMessageClose ? '50px' : '120px'
     divElement.appendChild(CssEyeeassistClasses.svgHuman('#006400'))
     divElement.addEventListener('click', this.showOptionsView)
     document.body.appendChild(divElement)
@@ -155,7 +156,8 @@ export class Eyeeassist {
     divElementContainer = CssEyeeassistClasses.messageContent(divElementContainer)
 
     let spanElement = document.createElement('span')
-    spanElement.textContent = 'Esta página cuenta con herramientas de accesibilidad. Para activar y/o desactivar estas herramientas presiona cmd + A o haz click en el botón'
+    spanElement.textContent = 'Esta página cuenta con herramientas de accesibilidad. Para activar y/o desactivar estas herramientas, presiona Ctrl + Space o haz clic en el botón con el icono de una persona posicionado en la parte superior derecha de la pantalla.'
+    spanElement.style.padding = '15px'
 
     let buttonElement = document.createElement('button')
     buttonElement = CssEyeeassistClasses.closeButtom(buttonElement)
@@ -164,7 +166,7 @@ export class Eyeeassist {
     buttonElement.appendChild(CssEyeeassistClasses.svgCloseButtom('#006400'))
 
     divElementContainer.appendChild(spanElement)
-    divElementContainer.appendChild(CssEyeeassistClasses.svgHuman('#006400', '20', '20'))
+    //divElementContainer.appendChild(CssEyeeassistClasses.svgHuman('#006400', '20', '20'))
 
     divElement.appendChild(divElementContainer)
     divElement.appendChild(buttonElement)
@@ -187,8 +189,8 @@ export class Eyeeassist {
       });
       const flyAnimation = flyMenu?.animate(
         [
-          { top: '70px' }, // Estado inicial
-          { top: '30px' }, // Estado final
+          { top: '120px' }, // Estado inicial
+          { top: '50px' }, // Estado final
         ],
         {
           duration: 1000, // Duración en milisegundos

@@ -48,7 +48,7 @@ export class ScreenReader {
   }
   private sayWelcome() {
     this.talk(
-      "Hola bienvenido a la pagina X, si desea leer las acciones de la pagina presione control y enter"
+      "Hola bienvenido a la pagina X, si desea leer el contenido precione control + flecha derecha o precione control + enter para navegar por los links"
     );
   }
   private sayGoodbay() {
@@ -191,6 +191,7 @@ export class ScreenReader {
         });
         this.talk("Seleccionado un text area", true);
       } else {
+        console.log(this.selectedLink.textContent)
         if(this.selectedLink.textContent !== null)
         {
           this.talk(this.selectedLink.textContent, true);

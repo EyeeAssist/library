@@ -1,3 +1,4 @@
+import { GlobalStyle } from "../../style/global-style"
 import { CardButton } from "./card-button"
 import { OptionCardStyles } from "./option-card-styles"
 
@@ -31,7 +32,21 @@ export class OptionCard {
     if(this.icon){
       this.icon.style.marginTop = '30px'
       this.icon.style.marginBottom = '30px'
-      container.appendChild(this.icon)
+      const iconContainer = document.createElement('div')
+      iconContainer.style.position = 'absolute'
+      iconContainer.style.top = '-20px'
+      iconContainer.style.right = '-20px'
+      iconContainer.style.width = '70px'
+      iconContainer.style.height = '70px'
+      iconContainer.style.display = 'flex'
+      iconContainer.style.justifyItems = 'center'
+      iconContainer.style.alignContent = 'center'
+      iconContainer.style.justifyContent = 'center'
+      iconContainer.style.alignItems = 'center'
+      iconContainer.style.borderRadius = '50%'
+      iconContainer.style.background = GlobalStyle.getForegroundColor()
+      iconContainer.append(this.icon)
+      container.appendChild(iconContainer)
     }
     const buttomContainer = document.createElement('div')
     buttomContainer.style.display = 'flex'

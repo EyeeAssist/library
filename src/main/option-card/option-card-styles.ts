@@ -1,93 +1,57 @@
+import { GlobalStyle } from "../../style/global-style";
+
 export class OptionCardStyles {
   public static zoomIconSvg() {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", "108");
-    svg.setAttribute("height", "108");
-    svg.setAttribute("viewBox", "0 0 108 108");
+    svg.setAttribute("width", "44");
+    svg.setAttribute("height", "44");
+    svg.setAttribute("viewBox", "0 0 44 44");
     svg.setAttribute("fill", "none");
 
-    const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path1.setAttribute("opacity", "0.16");
-    path1.setAttribute(
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute(
       "d",
-      "M85.4996 49.4995C85.4996 59.0472 81.7068 68.204 74.9555 74.9553C68.2042 81.7066 59.0474 85.4995 49.4996 85.4995C39.9518 85.4995 30.7951 81.7066 24.0438 74.9553C17.2925 68.204 13.4996 59.0472 13.4996 49.4995C13.4996 39.9517 17.2925 30.7949 24.0438 24.0436C30.7951 17.2923 39.9518 13.4995 49.4996 13.4995C59.0474 13.4995 68.2042 17.2923 74.9555 24.0436C81.7068 30.7949 85.4996 39.9517 85.4996 49.4995Z"
+      "M34.4723 31.5047C37.5191 34.5183 40.4996 37.532 43.4471 40.4795C42.4867 41.4399 41.4932 42.4003 40.4003 43.5263C40.334 43.3938 40.2347 43.162 40.1022 43.0295C37.3866 40.3139 34.671 37.5983 31.9554 34.8495C31.6242 34.5183 31.4255 34.4521 31.0281 34.7502C21.4903 41.8704 7.9784 38.7243 2.54715 28.1267C-2.1224 18.9863 1.45428 7.62706 10.4953 2.75881C22.1526 -3.50037 36.4262 3.58674 38.4132 16.6681C39.2081 21.8675 37.9827 26.6033 34.9028 30.8754C34.7703 31.041 34.6379 31.2397 34.4392 31.5047H34.4723ZM17.45 21.7019C17.45 22.0331 17.45 22.2649 17.45 22.4967C17.45 24.1526 17.45 25.8085 17.45 27.4975C17.45 27.8949 17.5824 28.0605 17.9798 28.0273C18.7084 28.0273 19.4039 28.0273 20.1325 28.0273C20.6623 28.0273 21.1922 28.0273 21.7883 28.0273V21.7019C22.0864 21.7019 22.2851 21.7019 22.5169 21.7019C24.1728 21.7019 25.8618 21.7019 27.5176 21.7019C28.0475 21.7019 28.18 21.5363 28.18 21.0065C28.1469 20.0129 28.18 18.9863 28.18 17.9597C28.18 17.496 28.0806 17.3304 27.5839 17.3636C25.8949 17.3636 24.1728 17.3636 22.4838 17.3636C22.2851 17.3636 22.0533 17.3636 21.7883 17.3636V11.005C20.4968 11.005 19.2714 11.005 18.0461 11.005C17.6487 11.005 17.4831 11.1375 17.4831 11.5349C17.4831 13.0252 17.4831 14.5155 17.4831 16.0057C17.4831 16.4363 17.4831 16.8668 17.4831 17.3636H11.1908V21.6688H17.4831L17.45 21.7019Z"
     );
-    path1.setAttribute("fill", "#004D00");
+    path.setAttribute("fill", "#243C5A");
 
-    const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path2.setAttribute("d", "M94.5001 94.5L74.9566 74.9565M74.9566 74.9565C78.2996 71.6135 80.9514 67.6448 82.7606 63.277C84.5698 58.9091 85.501 54.2277 85.501 49.5C85.501 44.7723 84.5698 40.0909 82.7606 35.7231C80.9514 31.3552 78.2996 27.3865 74.9566 24.0435C71.6136 20.7005 67.6449 18.0487 63.277 16.2395C58.9092 14.4303 54.2278 13.4991 49.5001 13.4991C44.7724 13.4991 40.0909 14.4303 35.7231 16.2395C31.3553 18.0487 27.3866 20.7005 24.0436 24.0435C17.2921 30.795 13.4991 39.952 13.4991 49.5C13.4991 59.0481 17.2921 68.205 24.0436 74.9565C30.7951 81.708 39.952 85.5009 49.5001 85.5009C59.0481 85.5009 68.2051 81.708 74.9566 74.9565ZM49.5001 36V63M36.0001 49.5H63.0001");
-    path2.setAttribute("stroke", "#004D00");
-    path2.setAttribute("stroke-width", "9.01408");
-    path2.setAttribute("stroke-linecap", "round");
-    path2.setAttribute("stroke-linejoin", "round");
-
-    svg.appendChild(path1);
-    svg.appendChild(path2);
+    svg.appendChild(path);
 
     return svg;
-  }
+    }
   public static filterIconSvg() {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", "108");
-    svg.setAttribute("height", "108");
-    svg.setAttribute("viewBox", "0 0 108 108");
+    svg.setAttribute("width", "47");
+    svg.setAttribute("height", "44");
+    svg.setAttribute("viewBox", "0 0 47 44");
     svg.setAttribute("fill", "none");
 
-    const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path1.setAttribute("d", "M54 91.9801C58.9451 96.4092 65.3568 98.8547 72 98.8453C86.9107 98.8453 99 86.775 99 71.8875C99 59.3274 90.396 48.7712 78.75 45.7789");
-    path1.setAttribute("stroke", "#004D00");
-    path1.setAttribute("stroke-width", "9.01408");
-    path1.setAttribute("stroke-linejoin", "round");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute(
+      "d",
+      "M26.4442 42.0029C29.6566 38.7905 31.3787 34.982 31.743 30.5443C31.743 30.2131 32.0079 29.7495 32.306 29.5839C36.545 26.9345 39.2938 23.1922 40.4529 18.324C40.4529 18.2577 40.5522 18.2246 40.6185 18.1584C45.1887 20.6753 48.8316 28.6897 45.0231 35.9093C40.9165 43.6919 31.8755 45.0165 26.4442 41.9698V42.0029ZM1.87116 36.0749C5.97771 43.725 15.0519 45.0497 20.2844 42.036C20.1851 41.9035 20.1188 41.771 20.0195 41.6386C17.0389 38.5255 15.383 34.8164 15.085 30.5112C15.085 30.18 14.7869 29.7495 14.4889 29.5507C10.1174 26.8682 7.43487 23.0266 6.24265 18.0921C1.60622 20.5759 -2.10293 28.7228 1.83804 36.0417L1.87116 36.0749ZM21.9403 0.539948C15.7473 1.06983 9.32256 7.26277 9.68685 12.4622C9.75309 12.4622 9.85244 12.5284 9.91867 12.5284C10.1505 12.5284 10.4154 12.4622 10.6473 12.4291C14.257 11.6343 17.8337 11.8992 21.1455 13.522C22.8013 14.3168 24.0598 14.3168 25.7157 13.522C29.3586 11.7667 33.2333 11.6343 37.2736 12.694C36.8762 7.16342 31.3456 -0.188633 21.9734 0.606184L21.9403 0.539948ZM37.373 16.2376C33.5976 14.9791 30.0209 15.1116 26.378 16.8337C29.0274 19.45 30.617 22.4305 31.4781 26.0403C34.8892 23.4903 36.81 20.311 37.373 16.2045V16.2376ZM20.0857 16.6681C19.887 16.5356 19.6552 16.4363 19.4234 16.37C16.509 15.2441 13.5947 15.1447 10.581 15.8733C9.5875 16.1051 9.48815 16.635 9.68685 17.4629C10.283 19.9798 11.3758 22.1987 13.1642 24.0533C13.8265 24.7156 14.5551 25.3117 15.4162 26.1065C16.2772 22.4305 17.8668 19.4831 20.3506 16.9662C20.2513 16.8337 20.2182 16.7012 20.1188 16.6681H20.0857ZM18.7279 27.0007C18.6617 27.2656 19.1253 27.8618 19.4234 27.9611C22.0396 28.789 24.7221 28.7559 27.3715 28.0274C27.9676 27.8618 28.2657 27.5968 28.1332 26.9014C27.504 23.689 25.9806 20.9734 23.4637 18.7876C20.8143 20.9734 19.3571 23.7552 18.7279 27.0007ZM28.1663 31.3391C24.9208 32.2001 21.8409 32.167 18.5954 31.3391C19.1915 34.9489 20.7149 37.797 23.4306 40.1483C26.0468 37.7307 27.7027 34.982 28.1663 31.3391Z"
+    );
+    path.setAttribute("fill", "#243C5A");
 
-    const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path2.setAttribute("d", "M29.25 45.7789C17.604 48.7712 9 59.3252 9 71.8875C9 86.775 21.0893 98.8453 36 98.8453C50.9107 98.8453 63 86.775 63 71.8875C63 68.4055 62.3385 65.0807 61.137 62.0254");
-    path2.setAttribute("stroke", "#004D00");
-    path2.setAttribute("stroke-width", "9.01408");
-    path2.setAttribute("stroke-linejoin", "round");
-
-    const path3 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path3.setAttribute("d", "M54 62.9016C68.9108 62.9016 81 50.8312 81 35.9438C81 21.0563 68.9108 8.98596 54 8.98596C39.0893 8.98596 27 21.0563 27 35.9438C27 50.8312 39.0893 62.9016 54 62.9016Z");
-    path3.setAttribute("fill", "#a3bd93");
-    path3.setAttribute("stroke", "#004D00");
-    path3.setAttribute("stroke-width", "9.01408");
-    path3.setAttribute("stroke-linejoin", "round");
-
-    svg.appendChild(path1)
-    svg.appendChild(path2)
-    svg.appendChild(path3)
+    svg.appendChild(path);
 
     return svg;
   }
   public static voiceIconSvg() {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", "108");
-    svg.setAttribute("height", "108");
-    svg.setAttribute("viewBox", "0 0 108 108");
+    svg.setAttribute("width", "51");
+    svg.setAttribute("height", "44");
+    svg.setAttribute("viewBox", "0 0 51 44");
     svg.setAttribute("fill", "none");
 
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute(
+      "d",
+      "M0.354146 43.8639C-0.970548 35.8495 4.59317 29.0936 11.614 28.3319C14.5946 28.0007 17.6414 28.067 20.6551 28.3319C26.55 28.8287 31.6832 34.2599 32.0475 40.1879C32.1137 41.3801 32.0475 42.5724 32.0475 43.8639H0.354146ZM25.4571 16.2109C25.4571 11.0115 21.4499 6.93808 16.2505 6.90496C10.9517 6.83873 6.87826 10.8459 6.84515 16.1116C6.81203 21.4104 10.7861 25.4838 16.0849 25.4838C21.3505 25.4838 25.4571 21.4435 25.4571 16.2109ZM43.9697 0.811371C42.7444 2.0036 41.5521 3.19582 40.3268 4.38804C43.7048 8.03095 45.5593 12.3693 45.5593 17.4694C45.5593 22.5695 43.6716 26.8747 40.2606 30.5176C41.4859 31.743 42.645 32.9021 43.8703 34.1274C53.1101 25.4176 53.1432 9.48812 44.0028 0.811371H43.9697ZM32.7429 11.9057C35.6904 15.8135 35.6904 18.8603 32.9085 23.0331C34.0345 24.2916 35.1605 25.55 36.2534 26.7754C41.3865 22.4701 41.3866 12.9323 36.4852 8.4946C35.1605 9.68682 33.9351 10.8128 32.7429 11.9057Z"
+    );
+    path.setAttribute("fill", "#243C5A");
 
-    const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path1.setAttribute("d", "M54.0001 99C78.8536 99 99.0001 78.8535 99.0001 54C99.0001 29.1465 78.8536 9 54.0001 9C29.1466 9 9.00006 29.1465 9.00006 54C9.00006 78.8535 29.1466 99 54.0001 99Z");
-    path1.setAttribute("fill", "#a3bd93");
-    path1.setAttribute("stroke", "#004D00");
-    path1.setAttribute("stroke-width", "9.01408");
-    path1.setAttribute("stroke-linejoin", "round");
-
-    const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path2.setAttribute("d", "M38.2501 58.275C39.4435 58.275 40.5881 57.8009 41.432 56.957C42.276 56.1131 42.7501 54.9685 42.7501 53.775C42.7501 52.5816 42.276 51.437 41.432 50.593C40.5881 49.7491 39.4435 49.275 38.2501 49.275C37.0566 49.275 35.912 49.7491 35.0681 50.593C34.2242 51.437 33.7501 52.5816 33.7501 53.775C33.7501 54.9685 34.2242 56.1131 35.0681 56.957C35.912 57.8009 37.0566 58.275 38.2501 58.275Z");
-    path2.setAttribute("fill", "#004D00");
-
-    const path3 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path3.setAttribute("d", "M49.3874 64.9125C50.8521 63.4515 52.0136 61.7154 52.8052 59.8041C53.5967 57.8927 54.0028 55.8438 53.9999 53.775C54.0028 51.7062 53.5967 49.6573 52.8052 47.7459C52.0136 45.8346 50.8521 44.0985 49.3874 42.6375M60.5249 76.0478C63.4543 73.1257 65.7773 69.6536 67.3604 65.8309C68.9436 62.0082 69.7556 57.9103 69.7499 53.7728C69.7499 45.0743 66.2242 37.1993 60.5249 31.5");
-    path3.setAttribute("stroke", "#004D00");
-    path3.setAttribute("stroke-width", "9.01408");
-    path3.setAttribute("stroke-linecap", "round");
-    path3.setAttribute("stroke-linejoin", "round");
-
-
-    svg.appendChild(path1);
-    svg.appendChild(path2);
-    svg.appendChild(path3);
+    svg.appendChild(path);
 
     return svg;
   }
@@ -96,18 +60,17 @@ export class OptionCardStyles {
     const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
     const optionCardStyle = `
         .option-card-eyeeassist {
+          position: relative;
           display: flex;
           flex-direction: column;
-          align-content: center;
-          align-items: center;
           justify-content: center;
           justify-items: center;
-          background-color: #F5F5DC;
+          background-color: ${GlobalStyle.getBackgroundColor()};
           width: 30%;
           padding: 50px;
-          border-radius: 50px;
-          color: #004D00;
-          font-size: 25px;
+          border-radius: 16px;
+          color: ${GlobalStyle.getForegroundColor()};
+          font-size: 22px;
         }
     `;
     styleSheet.insertRule(optionCardStyle, styleSheet.cssRules.length);

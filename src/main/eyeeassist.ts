@@ -4,6 +4,7 @@ import { Zoom } from "../zoom/zoom"
 import { CssEyeeassistClasses } from "./styles/css-eyeeassist-classes"
 import { OptionCard } from "./option-card/option-card"
 import { OptionCardStyles } from "./option-card/option-card-styles"
+import { GlobalStyle } from "../style/global-style"
 
 export class Eyeeassist {
   private animacionEnProgreso: boolean = false
@@ -93,7 +94,7 @@ export class Eyeeassist {
       },
       { id: 'filter',
         title: 'Aplicar filtros de color',
-        subtitle: '',
+        subtitle: 'Escoja una opcion',
         status: this.FilterObject.status(),
         toggle: (id: string = "") => { 
           this.FilterObject.toggleStatus()
@@ -138,8 +139,8 @@ export class Eyeeassist {
     const divElement = document.createElement('div')
     divElement.id = 'fly_menu'
     divElement.className = 'fly_menu'
-    divElement.style.top = this.initMessageClose ? '50px' : '120px'
-    divElement.appendChild(CssEyeeassistClasses.svgHuman('#006400'))
+    divElement.style.bottom = '120px'
+    divElement.appendChild(CssEyeeassistClasses.svgEyee())
     divElement.addEventListener('click', this.showOptionsView)
     document.body.appendChild(divElement)
   }
@@ -163,7 +164,7 @@ export class Eyeeassist {
     buttonElement = CssEyeeassistClasses.closeButtom(buttonElement)
     buttonElement.addEventListener('click', this.cerrarModal)
 
-    buttonElement.appendChild(CssEyeeassistClasses.svgCloseButtom('#006400'))
+    buttonElement.appendChild(CssEyeeassistClasses.svgCloseButtom(GlobalStyle.getForegroundColor()))
 
     divElementContainer.appendChild(spanElement)
     //divElementContainer.appendChild(CssEyeeassistClasses.svgHuman('#006400', '20', '20'))
@@ -176,10 +177,7 @@ export class Eyeeassist {
   cerrarModal = () => {
     if (!this.animacionEnProgreso) {
       const mensaje = document.getElementById('eyeeasist-initial-message')
-      const flyMenu = document.getElementById('fly_menu')
-
       this.animacionEnProgreso = true
-      // Crea una animación usando la API de animación de CSS
       const animacion = mensaje?.animate([
         { opacity: 1, transform: 'translateY(0)' },
         { opacity: 0, transform: 'translateY(-100%)' }
@@ -187,29 +185,13 @@ export class Eyeeassist {
         duration: 300, // Duración de la animación en milisegundos
         easing: 'ease-out' // Tipo de interpolación
       });
-      const flyAnimation = flyMenu?.animate(
-        [
-          { top: '120px' }, // Estado inicial
-          { top: '50px' }, // Estado final
-        ],
-        {
-          duration: 1000, // Duración en milisegundos
-          easing: 'ease', // Función de temporización (puedes cambiarla según tus necesidades)
-        }
-      );
-
-      if (animacion && flyAnimation) {
+      if (animacion) {
         animacion.onfinish = () => {
           if (mensaje) {
             mensaje.style.display = 'none'
           }
           this.animacionEnProgreso = false
           localStorage.setItem('initMessageClose', 'true');
-        }
-        flyAnimation.onfinish = () => {
-          if (flyMenu) {
-            flyMenu.style.top = '30px'
-          }
         }
       }
     }

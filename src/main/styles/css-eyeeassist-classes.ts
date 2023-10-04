@@ -223,9 +223,23 @@ export class CssEyeeassistClasses {
             display: flex;
             justify-content: space-around;
             align-items: center;
+            flex-direction: column;
             background-color: rgba(0, 0, 0, 0.5);
         }`
     styleSheet.insertRule(option_functions, styleSheet.cssRules.length);
 
+  }
+
+  public static overlayOptionsStyleClass() {
+    const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
+    const option_functions = `
+        .options-menu-view {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }`
+    styleSheet.insertRule(option_functions, styleSheet.cssRules.length);
   }
 }

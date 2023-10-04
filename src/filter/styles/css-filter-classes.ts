@@ -1,14 +1,21 @@
+import { GlobalStyle } from "../../style/global-style";
+
 export class CssFilterClasses {
 
   public static addFilterBufferStyleClass() {
     const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
     const filter_buffer = `
         .filter-list-buffer {
-          margin-top: 15px;
+          background-color: ${GlobalStyle.getBackgroundColor()};
           display: flex;
           flex-wrap: wrap;
           flex-direction: column;
+          border-radius: 22px;
+          color: ${GlobalStyle.getForegroundColor()};
+          padding: 7%;
           width: 100%;
+          font-size: 2.5rem;
+          margin-top: 2rem;
         }
     `;
     styleSheet.insertRule(filter_buffer, styleSheet.cssRules.length);

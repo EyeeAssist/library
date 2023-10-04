@@ -34,6 +34,7 @@ export class Eyeeassist {
     CssEyeeassistClasses.addFlyMenuStyle()
     CssEyeeassistClasses.addOptionFunctionsClass()
     CssEyeeassistClasses.overlayStyleClass()
+    CssEyeeassistClasses.overlayOptionsStyleClass()
     this.zoomStatus = zoomStatus
     this.filterStatus = filterStatus
     this.readerStatus = readerStatus
@@ -79,6 +80,14 @@ export class Eyeeassist {
     const divElement = document.createElement('div')
     divElement.id = 'overlay-menu-view'
     divElement.className = 'overlay-menu-view'
+    const divOptionsElement = document.createElement('div')
+    divOptionsElement.className = 'options-menu-view'
+    divOptionsElement.id = 'option-menu-display'
+    const divFilterMenu = document.createElement('div')
+    divFilterMenu.id = 'option-filter-display'
+    divFilterMenu.style.width = '30%'
+    divElement.append(divOptionsElement)
+    divElement.append(divFilterMenu)
 
     const opciones: Opciones[] = [
       {
@@ -99,9 +108,19 @@ export class Eyeeassist {
         toggle: (id: string = "") => { 
           this.FilterObject.toggleStatus()
           var optionsList = this.FilterObject.showFilterOptionsList()
-          const container = document.getElementById(id)
+          const container = document.getElementById('option-filter-display')
+          const option_container = document.getElementById('option-menu-display')
           if(optionsList != "") {
             container?.appendChild(optionsList as Node)
+            if(option_container && container) {
+              option_container.style.alignItems = 'end'
+              container.style.height = '100%'
+            }
+          } else {
+            if(option_container && container) {
+              option_container.style.alignItems = 'center'
+              container.style.height = '0'
+            }
           }
           localStorage.setItem('filterStatus', JSON.stringify(this.FilterObject.status()))
         },
@@ -120,17 +139,26 @@ export class Eyeeassist {
     opciones.forEach((opcion: Opciones) => {
       const card = new OptionCard(opcion.id, opcion.title, opcion.subtitle, opcion.icon, opcion.status, opcion.toggle)
       const cardElement = card.getElement()
-      divElement.appendChild(cardElement)
+      divOptionsElement.appendChild(cardElement)
       console.log('Creado', opcion.id, opcion.status)
     })
 
     document.body.appendChild(divElement)
     if(this.FilterObject.status()) {
         var optionsList = this.FilterObject.showFilterOptionsList()
-        const container = document.getElementById('filter-card-option-eyeassist')
-        console.log(container)
-        if(optionsList != "") {
+        const container = document.getElementById('option-filter-display')
+        const option_container = document.getElementById('option-menu-display')
+        if(optionsList != "" && container) {
           container?.appendChild(optionsList as Node)
+          if(option_container) {
+            option_container.style.alignItems = 'end'
+            container.style.height = '100%'
+          }
+        } else {
+          if(option_container && container) {
+            option_container.style.alignItems = 'center'
+            container.style.height = '0'
+          }
         }
     }
     this.viewOptionsOn = !this.viewOptionsOn

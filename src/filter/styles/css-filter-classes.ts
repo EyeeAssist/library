@@ -12,9 +12,8 @@ export class CssFilterClasses {
           flex-direction: column;
           border-radius: 22px;
           color: ${GlobalStyle.getForegroundColor()};
-          padding: 7%;
           width: 100%;
-          font-size: 2.5rem;
+          font-size: 2.2rem;
           margin-top: 2rem;
         }
     `;

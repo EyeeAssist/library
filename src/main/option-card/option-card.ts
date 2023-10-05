@@ -30,14 +30,12 @@ export class OptionCard {
     container.appendChild(spanTitle)
     container.appendChild(spanSubtitle)
     if(this.icon){
-      this.icon.style.marginTop = '30px'
-      this.icon.style.marginBottom = '30px'
       const iconContainer = document.createElement('div')
       iconContainer.style.position = 'absolute'
       iconContainer.style.top = '-20px'
       iconContainer.style.right = '-20px'
-      iconContainer.style.width = '70px'
-      iconContainer.style.height = '70px'
+      iconContainer.style.width = '90px'
+      iconContainer.style.height = '90px'
       iconContainer.style.display = 'flex'
       iconContainer.style.justifyItems = 'center'
       iconContainer.style.alignContent = 'center'

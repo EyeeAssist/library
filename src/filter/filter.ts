@@ -1,8 +1,10 @@
+import { GlobalStyle } from "../style/global-style"
 import { FilterService } from "./filter-module/filter_service"
 import { CssFilterClasses } from "./styles/css-filter-classes"
 export class Filter {
   private filterViewOn : boolean = false
   private filterService : FilterService
+  private filterOptionsMap: Map<string, HTMLInputElement> = new Map<string, HTMLInputElement>
 
   constructor(
     private enableFilter: boolean = false
@@ -19,10 +21,9 @@ export class Filter {
   }
 
   startFilter = (event: Event) => {
-    const component = event.target as HTMLElement;
-    var filtro = component.textContent?.toLowerCase()
-    console.log(filtro)
-    this.filterService.aplicarFiltro(filtro as string);
+    const radio = event.target as HTMLInputElement;
+    const radioId = radio.id.replace('_option', '')
+    this.changeActiveInputs(radioId)
   }
   public showFilterOptions() {
     const image = document.createElement('img')
@@ -48,13 +49,14 @@ export class Filter {
         return;
       }
       filter_buffer_instance.remove();
+      this.filterOptionsMap.clear()
       return "";
     }
     const filterList: FilterOption[] = [
-      { id: "protanopia", name: "Protanopia"},
-      { id: "deuteranopia", name: "Deuteranopia"},
-      { id: "tritanopia", name: "Tritanopia"},
-      { id: "grayscale", name: "Grayscale"},
+      { id: "protanopia", name: "Rojo (Protanopia)"},
+      { id: "deuteranopia", name: "Verde (Deuteranopia)"},
+      { id: "tritanopia", name: "Azul (Tritanopia)"},
+      { id: "grayscale", name: "Grises (Grayscale)"},
     ];
      const colorOptions = [
        "colors",
@@ -64,12 +66,17 @@ export class Filter {
     bufferListDivElement.className = 'filter-list-buffer'
     bufferListDivElement.id = 'filter_buffer'
 
+    var bufferListContainer = document.createElement('div')
+    bufferListContainer.style.padding = '7% 7% 3% 7%'
+
     var description = document.createElement('span')
     description.textContent = 'Seleccione un filtro para distinguir mejor los siguientes colores:'
     description.style.marginBottom = '5px'
-    bufferListDivElement.appendChild(description)
+    bufferListContainer.appendChild(description)
 
     const colors = [
+      '#3B3F4A',
+      '#726401',
       '#FFFF00', // Amarillo
       '#FF0000', // Rojo
       '#FFA500', // Naranja
@@ -78,12 +85,19 @@ export class Filter {
       '#0000FF', // Azul
       '#4B0082', // Índigo
       '#9400D3', // Violeta
-      '#FFFF00'  // Amarillo
+      '#FFFF00',  // Amarillo
+      '#0018A9'
     ]
-                                    
+
     filterList.forEach((filter) => {
-      bufferListDivElement.appendChild(this.buildFilterOption(filter))
+      bufferListContainer.appendChild(this.buildFilterOption(filter))
+      const divider = document.createElement('div')
+      divider.style.border = '1px solid #FFFFFF'
+      divider.style.margin = '20px 0'
+      bufferListContainer.appendChild(divider)
     });
+
+    bufferListDivElement.appendChild(bufferListContainer)
 
     var colorContainer = document.createElement('div')
     colorContainer.style.display = 'flex'
@@ -92,15 +106,20 @@ export class Filter {
     colorContainer.style.alignItems = 'center'
     colorContainer.style.justifyItems = 'center'
     colorContainer.style.justifyContent= 'center'
+    colorContainer.style.background = GlobalStyle.getForegroundColor()
+    colorContainer.style.padding = '5% 0'
+    colorContainer.style.borderBottomRightRadius = '22px'
+    colorContainer.style.borderBottomLeftRadius = '22px'
     colors.forEach((color) => {
                 var colorBox = document.createElement('div')
                 colorBox.style.display = 'block'
-                colorBox.style.width = '20px'
-                colorBox.style.height = '25px'
+                colorBox.style.width = '43px'
+                colorBox.style.height = '50px'
                 colorBox.style.backgroundColor = color
                 colorContainer.appendChild(colorBox)
                 })
     bufferListDivElement.appendChild(colorContainer)
+
     return bufferListDivElement
   }
 
@@ -109,12 +128,14 @@ export class Filter {
     optionDivElement.className = 'filter-option'
     optionDivElement.style.display = 'flex'
     optionDivElement.id = filterOption.id + '_option'
-    optionDivElement.addEventListener('click', this.startFilter)
 
     const radioContainer = document.createElement('div')
     const radioButton = document.createElement('input')
     radioButton.type = "radio"
+    radioButton.id = filterOption.id + '_option'
     radioButton.style.margin = '0'
+    radioButton.addEventListener('click', this.startFilter)
+    this.filterOptionsMap.set(filterOption.id, radioButton)
     radioContainer.style.marginLeft = '6px'
 
     const optionText = document.createElement('span')
@@ -126,7 +147,29 @@ export class Filter {
     optionDivElement.append(optionText)
     return optionDivElement
   }
+  private changeActiveInputs(selected_input: string) {
+    console.log('Input seleccionado', selected_input)
+    const current_element = this.filterOptionsMap.get(selected_input)
+    if(this.filterService.getActiveFilter() && this.filterService.filtro_aplicado == selected_input) {
+      this.filterService.aplicarFiltro(selected_input);
+      if(current_element) {
+        current_element.checked = false
+      }
+      return
+    }
 
+    for (const [clave, valor] of this.filterOptionsMap) {
+      if(clave != selected_input) {
+        valor.checked = false
+      }
+    }
+    if(this.filterService.getActiveFilter()) {
+      this.filterService.aplicarFiltro(selected_input);
+      this.filterService.aplicarFiltro(selected_input);
+    } else {
+      this.filterService.aplicarFiltro(selected_input);
+    }
+  }
 }
 
 export interface FilterOption {

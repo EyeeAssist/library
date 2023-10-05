@@ -103,7 +103,7 @@ export class Eyeeassist {
       },
       { id: 'filter',
         title: 'Aplicar filtros de color',
-        subtitle: 'Escoja una opcion',
+        subtitle: 'Aplique un filtro',
         status: this.FilterObject.status(),
         toggle: (id: string = "") => { 
           this.FilterObject.toggleStatus()
@@ -115,11 +115,13 @@ export class Eyeeassist {
             if(option_container && container) {
               option_container.style.alignItems = 'end'
               container.style.height = '100%'
+              option_container.style.height = '50%'
             }
           } else {
             if(option_container && container) {
               option_container.style.alignItems = 'center'
               container.style.height = '0'
+              option_container.style.height = '100%'
             }
           }
           localStorage.setItem('filterStatus', JSON.stringify(this.FilterObject.status()))
@@ -153,11 +155,13 @@ export class Eyeeassist {
           if(option_container) {
             option_container.style.alignItems = 'end'
             container.style.height = '100%'
+            option_container.style.height = '50%'
           }
         } else {
           if(option_container && container) {
             option_container.style.alignItems = 'center'
             container.style.height = '0'
+            option_container.style.height = '100%'
           }
         }
     }

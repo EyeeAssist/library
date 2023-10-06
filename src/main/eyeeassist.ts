@@ -10,6 +10,7 @@ export class Eyeeassist {
   private animacionEnProgreso: boolean = false
   private initMessageClose: boolean = false
   private viewOptionsOn: boolean = false
+  private appName: HTMLElement
 
   private zoomStatus: boolean
   private filterStatus: boolean
@@ -38,6 +39,7 @@ export class Eyeeassist {
     this.zoomStatus = zoomStatus
     this.filterStatus = filterStatus
     this.readerStatus = readerStatus
+    this.appName = this.createAppName()
 
     const savedZoomStatus = localStorage.getItem('zoomStatus')
     if (savedZoomStatus) {
@@ -59,6 +61,12 @@ export class Eyeeassist {
     this.ScreenReaderObject = new ScreenReader(this.readerStatus, this.token)
   }
 
+  private createAppName() {
+    const appName = document.createElement('span')
+    appName.textContent = 'EyeAssist'
+    return appName
+  }
+
   public start() {
     this.showInitMessage()
     this.showFlyMenu()
@@ -69,13 +77,52 @@ export class Eyeeassist {
       this.ScreenReaderObject.keybindsScreenReader(event)
     })
   }
+  private createCloseButtom () {
+    const closeButtomModal = document.createElement('div')
+    const closeSpanButtonModal = document.createElement('span')
+    const closeButtom = CssEyeeassistClasses.svgCloseButtomMenu(GlobalStyle.getForegroundColor())
+    closeButtom.style.width = '25px'
+    closeButtom.style.marginTop = '3px'
+    closeButtom.style.height = '17px'
+    closeSpanButtonModal.textContent = 'Cerrar '
+    closeSpanButtonModal.style.color = GlobalStyle.getForegroundColor()
+    closeButtomModal.append(closeSpanButtonModal)
+    closeButtomModal.append(closeButtom)
+    closeButtomModal.style.position = 'absolute'
+    closeButtomModal.style.display = 'flex'
+    closeButtomModal.style.alignItems = 'center'
+    closeButtomModal.style.justifyContent = 'center'
+    closeButtomModal.style.flexDirection = 'row'
+    closeButtomModal.style.top = '20px'
+    closeButtomModal.style.right = '100px'
+    closeButtomModal.style.padding = '10px'
+    closeButtomModal.style.fontSize = '22px'
+    closeButtomModal.style.fontWeight = 'bold'
+    closeButtomModal.style.cursor = 'pointer'
+    closeButtomModal.addEventListener('click', this.showOptionsView)
+    return closeButtomModal
+  }
 
   showOptionsView = () => {
+    const fly_menu_element = document.getElementById('fly_menu')
     if (this.viewOptionsOn) {
       const bufferOptions = document.getElementById('overlay-menu-view')
       bufferOptions?.remove()
+      if(fly_menu_element) {
+        fly_menu_element.style.width = '72px'
+        fly_menu_element.style.borderRadius = '50%'
+        fly_menu_element.style.justifyContent = 'center'
+        this.appName.remove()
+      }
       this.viewOptionsOn = !this.viewOptionsOn
       return
+    }
+    if(fly_menu_element) {
+      fly_menu_element.style.width = '200px'
+      fly_menu_element.style.borderRadius = '50px'
+      fly_menu_element.style.justifyContent = 'space-evenly'
+      this.appName = this.createAppName()
+      fly_menu_element.append(this.appName)
     }
     const divElement = document.createElement('div')
     divElement.id = 'overlay-menu-view'
@@ -83,6 +130,7 @@ export class Eyeeassist {
     const divOptionsElement = document.createElement('div')
     divOptionsElement.className = 'options-menu-view'
     divOptionsElement.id = 'option-menu-display'
+    divOptionsElement.append(this.createCloseButtom())
     const divFilterMenu = document.createElement('div')
     divFilterMenu.id = 'option-filter-display'
     divFilterMenu.style.width = '30%'
@@ -115,7 +163,7 @@ export class Eyeeassist {
             if(option_container && container) {
               option_container.style.alignItems = 'end'
               container.style.height = '100%'
-              option_container.style.height = '50%'
+              option_container.style.height = '70%'
             }
           } else {
             if(option_container && container) {
@@ -155,7 +203,7 @@ export class Eyeeassist {
           if(option_container) {
             option_container.style.alignItems = 'end'
             container.style.height = '100%'
-            option_container.style.height = '50%'
+            option_container.style.height = '70%'
           }
         } else {
           if(option_container && container) {

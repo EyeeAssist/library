@@ -92,8 +92,8 @@ export class Filter {
     filterList.forEach((filter) => {
       bufferListContainer.appendChild(this.buildFilterOption(filter))
       const divider = document.createElement('div')
-      divider.style.border = '1px solid #FFFFFF'
-      divider.style.margin = '20px 0'
+      divider.style.border = '1px solid #65768b'
+      divider.style.margin = '5px 0'
       bufferListContainer.appendChild(divider)
     });
 

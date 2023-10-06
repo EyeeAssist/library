@@ -55,11 +55,25 @@ export class CssEyeeassistClasses {
           cursor: pointer;
           display: flex;
           align-content: center;
+          align-items: center;
           justify-content: center;
+          font-size: 22px;
           z-index: 9999;
         }
     `;
     styleSheet.insertRule(fly_menu, styleSheet.cssRules.length);
+  }
+  public static svgCloseButtomMenu(color: string) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "17");
+    svg.setAttribute("height", "17");
+    svg.setAttribute("viewBox", "0 0 17 17");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M3.0535 0L0 3.0535L1.55924 4.61274L5.41401 8.53248L1.55924 12.3873L0 13.8815L3.0535 17L4.61274 15.4408L8.53248 11.521L12.3873 15.4408L13.8815 17L17 13.8815L15.4408 12.3873L11.521 8.53248L15.4408 4.61274L17 3.0535L13.8815 0L12.3873 1.55924L8.53248 5.41401L4.61274 1.55924L3.0535 0Z");
+    path.setAttribute("fill", color);
+    svg.appendChild(path);
+
+    return svg;
   }
   public static svgEyee() {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -234,6 +248,7 @@ export class CssEyeeassistClasses {
     const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
     const option_functions = `
         .options-menu-view {
+            position: relative;
             width: 100%;
             height: 100%;
             display: flex;

@@ -70,7 +70,7 @@ export class OptionCardStyles {
           padding: 50px;
           border-radius: 16px;
           color: ${GlobalStyle.getForegroundColor()};
-          font-size: 2.2rem;
+          font-size: 22px;
         }
     `;
     styleSheet.insertRule(optionCardStyle, styleSheet.cssRules.length);

@@ -1,3 +1,5 @@
+import { GlobalStyle } from "../../style/global-style"
+
 export class CssEyeeassistClasses {
   public static mainMessage(div: HTMLDivElement) {
     div.style.display = 'flex'
@@ -9,9 +11,9 @@ export class CssEyeeassistClasses {
     div.style.top = '0'
     div.style.left = '0'
     div.style.width = '100%'
-    div.style.backgroundColor = '#F5F5DC'
+    div.style.backgroundColor = GlobalStyle.getBackgroundColor() 
     div.style.zIndex = '999'
-    div.style.color = '#006400'
+    div.style.color = GlobalStyle.getForegroundColor() 
     return div
   }
   public static messageContent(div: HTMLDivElement) {
@@ -33,7 +35,7 @@ export class CssEyeeassistClasses {
     button.style.cursor = 'pointer'
     button.style.width = '50px'
     button.style.height = '50px'
-    button.style.color = '#006400'
+    button.style.color = GlobalStyle.getForegroundColor()
     return button
   }
   public static addFlyMenuStyle() {
@@ -45,19 +47,68 @@ export class CssEyeeassistClasses {
           width: 72px;
           height: 72px;
           border-radius: 50%;
-          background-color: #F5F5DC;
-          color: #006400;
+          background-color: ${GlobalStyle.getBackgroundColor()};
+          color: ${GlobalStyle.getForegroundColor()};
           text-align: center;
           line-height: 50px;
           flex-wrap: wrap;
           cursor: pointer;
           display: flex;
           align-content: center;
+          align-items: center;
           justify-content: center;
+          font-size: 22px;
           z-index: 9999;
         }
     `;
     styleSheet.insertRule(fly_menu, styleSheet.cssRules.length);
+  }
+  public static svgCloseButtomMenu(color: string) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "17");
+    svg.setAttribute("height", "17");
+    svg.setAttribute("viewBox", "0 0 17 17");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M3.0535 0L0 3.0535L1.55924 4.61274L5.41401 8.53248L1.55924 12.3873L0 13.8815L3.0535 17L4.61274 15.4408L8.53248 11.521L12.3873 15.4408L13.8815 17L17 13.8815L15.4408 12.3873L11.521 8.53248L15.4408 4.61274L17 3.0535L13.8815 0L12.3873 1.55924L8.53248 5.41401L4.61274 1.55924L3.0535 0Z");
+    path.setAttribute("fill", color);
+    svg.appendChild(path);
+
+    return svg;
+  }
+  public static svgEyee() {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "34");
+    svg.setAttribute("height", "26");
+    svg.setAttribute("viewBox", "0 0 34 26");
+    svg.setAttribute("fill", "none");
+
+    const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path1.setAttribute(
+      "d",
+      "M17.3208 0.00330279C21.1597 0.109866 24.644 1.38863 27.7511 3.91482C30.543 6.184 32.5919 9.11763 33.9316 12.6656C34.016 12.8912 34.0273 13.0856 33.9372 13.3175C32.1304 18.0627 29.1639 21.6107 25.0323 23.9237C23.1523 24.9768 21.1484 25.6099 19.0488 25.8669C15.5589 26.2995 12.2323 25.6789 9.07448 23.9864C6.18687 22.4381 3.82837 20.1814 1.98772 17.2541C1.19968 16.0004 0.541103 14.6715 0.0401335 13.2485C-0.0105264 13.1044 -0.0161553 12.8975 0.0401335 12.7533C2.20162 7.06785 5.88854 3.16887 11.1009 1.09401C12.9471 0.354336 14.9454 -0.0405764 17.3208 0.00330279Z"
+    );
+    path1.setAttribute("fill", "white");
+
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", "17.5");
+    circle.setAttribute("cy", "13.5");
+    circle.setAttribute("r", "7.5");
+    circle.setAttribute("fill", "#28405D");
+
+    const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path2.setAttribute("fill-rule", "evenodd");
+    path2.setAttribute("clip-rule", "evenodd");
+    path2.setAttribute(
+      "d",
+      "M17.0377 6.02181C17.2247 6.00736 17.4137 6 17.6044 6C21.6117 6 24.8603 9.24854 24.8603 13.2558C24.8603 13.5069 24.8475 13.755 24.8226 13.9996C24.6356 14.014 24.4466 14.0214 24.2558 14.0214C20.2485 14.0214 17 10.7729 17 6.76558C17 6.51447 17.0128 6.26635 17.0377 6.02181Z"
+    );
+    path2.setAttribute("fill", "#506F95");
+
+    svg.appendChild(path1);
+    svg.appendChild(circle);
+    svg.appendChild(path2);
+
+    return svg;
   }
   public static svgHuman(color: string, width: string='34', height: string='38'){
       const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -105,8 +156,8 @@ export class CssEyeeassistClasses {
             max-height: 100%;
             overflow-y: auto; 
             z-index: 9999;
-            background-color: #F5F5DC;
-            color: #006400;
+            background-color: ${GlobalStyle.getBackgroundColor()};
+            color: ${GlobalStyle.getForegroundColor()};
         }
     `;
     styleSheet.insertRule(buffer_options, styleSheet.cssRules.length);
@@ -186,9 +237,24 @@ export class CssEyeeassistClasses {
             display: flex;
             justify-content: space-around;
             align-items: center;
+            flex-direction: column;
             background-color: rgba(0, 0, 0, 0.5);
         }`
     styleSheet.insertRule(option_functions, styleSheet.cssRules.length);
 
+  }
+
+  public static overlayOptionsStyleClass() {
+    const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
+    const option_functions = `
+        .options-menu-view {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }`
+    styleSheet.insertRule(option_functions, styleSheet.cssRules.length);
   }
 }

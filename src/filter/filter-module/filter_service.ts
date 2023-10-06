@@ -2,6 +2,11 @@ export class FilterService {
   private hasInsertedAccess: boolean = false;
 
   private active_filter = false;
+  public filtro_aplicado: string = ''
+
+  public getActiveFilter() {
+    return this.active_filter
+  }
 
   public aplicarFiltro(filtro: string | null) {
     if (filtro == null) {
@@ -10,8 +15,10 @@ export class FilterService {
     }
     if (!this.active_filter) {
       this.toggleTest("colorBlindness", filtro);
+      this.filtro_aplicado = filtro
     } else {
       this.removeTests("colorBlindness");
+      this.filtro_aplicado = ''
     }
     this.active_filter = !this.active_filter;
   }

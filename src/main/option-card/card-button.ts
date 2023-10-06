@@ -1,3 +1,4 @@
+import { GlobalStyle } from "../../style/global-style"
 import { PositionButton } from "./option-card"
 
 export class CardButton {
@@ -20,14 +21,16 @@ export class CardButton {
     const buttom = document.createElement('div')
     buttom.id = this.functionalityId + '-button-eyeassist-' + this.text
     buttom.addEventListener('click', this.changeButtonState)
-    buttom.style.width = '100px'
+    buttom.style.marginTop = '20px'
+    buttom.style.width = '104px'
+    buttom.style.height = '48px'
     buttom.style.cursor = 'pointer'
     if(this.position == PositionButton.LEFT) {
       buttom.style.borderRadius = '50px 0 0 50px'
     } else {
       buttom.style.borderRadius = '0 50px 50px 0'
     }
-    buttom.style.border = '1px solid #004D00'
+    buttom.style.border = `1px solid ${GlobalStyle.getForegroundColor()}`
     buttom.style.padding = '10px'
     buttom.style.display = 'flex'
     buttom.style.alignContent = 'center'
@@ -35,8 +38,11 @@ export class CardButton {
     buttom.style.justifyContent = 'center'
     buttom.style.justifyItems = 'center'
     if(this.active) {
-      buttom.style.backgroundColor = '#004D00'
-      buttom.style.color = '#FFFFFF'
+      buttom.style.backgroundColor = GlobalStyle.getBackgroundColor()
+      buttom.style.color = GlobalStyle.getForegroundColor()
+    } else {
+      buttom.style.backgroundColor = GlobalStyle.getForegroundColor()
+      buttom.style.color = GlobalStyle.getBackgroundColor()
     }     
     const span = document.createElement('span')
     span.textContent = this.text
@@ -56,20 +62,20 @@ export class CardButton {
     const elementCurrent = document.getElementById(this.functionalityId + '-button-eyeassist-' + this.text)
     if(this.active === false) {
       if(elementCurrent != null) {
-        elementCurrent.style.backgroundColor = '#004D00'
-        elementCurrent.style.color = '#FFFFFF'
+        elementCurrent.style.backgroundColor = GlobalStyle.getBackgroundColor()
+        elementCurrent.style.color = GlobalStyle.getForegroundColor()
       }
       if(this.position == PositionButton.LEFT) {
         const oposiveElement = document.getElementById(this.functionalityId + '-button-eyeassist-' + 'No')
         if (oposiveElement!= null) {
-          oposiveElement.style.backgroundColor = '#F5F5DC'
-          oposiveElement.style.color = '#004D00'
+          oposiveElement.style.backgroundColor = GlobalStyle.getForegroundColor()
+          oposiveElement.style.color = GlobalStyle.getBackgroundColor()
         }
       } else {
         const oposiveElement = document.getElementById(this.functionalityId + '-button-eyeassist-' + 'Si')
         if (oposiveElement!= null) {
-          oposiveElement.style.backgroundColor = '#F5F5DC'
-          oposiveElement.style.color = '#004D00'
+          oposiveElement.style.backgroundColor = GlobalStyle.getForegroundColor()
+          oposiveElement.style.color = GlobalStyle.getBackgroundColor()
         }
       }
       this.toggleToolStatus(this.functionalityId + '-card-option-eyeassist')

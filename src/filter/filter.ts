@@ -12,6 +12,7 @@ export class Filter {
     this.filterService = new FilterService()
     CssFilterClasses.addFilterBufferStyleClass();
     CssFilterClasses.addFilterOptionsStyleClass();
+    CssFilterClasses.radioButtomCss()
   }
   public status() {
     return this.enableFilter
@@ -130,13 +131,25 @@ export class Filter {
     optionDivElement.id = filterOption.id + '_option'
 
     const radioContainer = document.createElement('div')
+    radioContainer.style.display = 'flex'
+    radioContainer.style.alignItems = 'center'
+    radioContainer.style.justifyContent = 'center'
     const radioButton = document.createElement('input')
     radioButton.type = "radio"
     radioButton.id = filterOption.id + '_option'
+    radioButton.className = 'radio_button_eyeassist'
+    radioButton.style.appearance = 'none'
     radioButton.style.margin = '0'
+    radioButton.style.height = '25px'
+    radioButton.style.width = '25px'
+    radioButton.style.border = '0.15em solid #FFFFFF'
+    radioButton.style.borderRadius = '50%'
+    radioButton.style.display = 'grid';
+    radioButton.style.position = 'relative';
+    radioButton.style.placeContent = 'center';
+
     radioButton.addEventListener('click', this.startFilter)
     this.filterOptionsMap.set(filterOption.id, radioButton)
-    radioContainer.style.marginLeft = '6px'
 
     const optionText = document.createElement('span')
     optionText.textContent = filterOption.name

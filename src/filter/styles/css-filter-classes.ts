@@ -29,6 +29,30 @@ export class CssFilterClasses {
     `;
     styleSheet.insertRule(filter_option, styleSheet.cssRules.length);
   }
+  public static radioButtomCss() {
+    const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
+    const radio_button = `
+        .radio_button_eyeassist::after {
+          content:"";
+          position: absolute;
+          height: 20px;
+          width: 22px;
+          border-radius: 50%;
+          background: #FFFFFF;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0;
+        }
+    `;
+    styleSheet.insertRule(radio_button, styleSheet.cssRules.length);
+    const checked_state = `
+        .radio_button_eyeassist:checked::after {
+          opacity: 1;
+        }
+    `;
+    styleSheet.insertRule(checked_state, styleSheet.cssRules.length);
+  }
 
   public static addFilterStyleClass() {
     const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado

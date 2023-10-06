@@ -73,6 +73,7 @@ export class ScreenReader {
     this.controller = new AbortController()
     const formData = new FormData();
     formData.append('file', blob, 'imagen.jpg');
+    console.log(this.token)
     const options = {
       method: 'POST',
       body: formData,

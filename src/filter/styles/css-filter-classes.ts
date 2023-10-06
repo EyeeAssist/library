@@ -1,14 +1,20 @@
+import { GlobalStyle } from "../../style/global-style";
+
 export class CssFilterClasses {
 
   public static addFilterBufferStyleClass() {
     const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
     const filter_buffer = `
         .filter-list-buffer {
-          margin-top: 15px;
+          background-color: ${GlobalStyle.getBackgroundColor()};
           display: flex;
           flex-wrap: wrap;
           flex-direction: column;
+          border-radius: 22px;
+          color: ${GlobalStyle.getForegroundColor()};
           width: 100%;
+          font-size: 22px;
+          margin-top: 2rem;
         }
     `;
     styleSheet.insertRule(filter_buffer, styleSheet.cssRules.length);
@@ -22,6 +28,30 @@ export class CssFilterClasses {
         }
     `;
     styleSheet.insertRule(filter_option, styleSheet.cssRules.length);
+  }
+  public static radioButtomCss() {
+    const styleSheet = document.styleSheets[0]; // Asegúrate de seleccionar el stylesheet adecuado
+    const radio_button = `
+        .radio_button_eyeassist::after {
+          content:"";
+          position: absolute;
+          height: 20px;
+          width: 22px;
+          border-radius: 50%;
+          background: #FFFFFF;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0;
+        }
+    `;
+    styleSheet.insertRule(radio_button, styleSheet.cssRules.length);
+    const checked_state = `
+        .radio_button_eyeassist:checked::after {
+          opacity: 1;
+        }
+    `;
+    styleSheet.insertRule(checked_state, styleSheet.cssRules.length);
   }
 
   public static addFilterStyleClass() {

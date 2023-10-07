@@ -103,6 +103,7 @@ export class Filter {
     var colorContainer = document.createElement('div')
     colorContainer.style.display = 'flex'
     colorContainer.style.flexDirection = 'row'
+    colorContainer.style.flexWrap = 'wrap'
     colorContainer.style.alignContent = 'center'
     colorContainer.style.alignItems = 'center'
     colorContainer.style.justifyItems = 'center'

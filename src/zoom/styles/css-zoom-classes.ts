@@ -1,3 +1,5 @@
+import { GlobalStyle } from "../../style/global-style";
+
 export class CssClasses{
   public static addZoomMessageTextBoxClass() {
 
@@ -11,8 +13,8 @@ export class CssClasses{
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 9999;
-          background-color: #F5F5DC;
-          color: #004D00;
+          background-color: ${GlobalStyle.getBackgroundColor()};
+          color: ${GlobalStyle.getForegroundColor()};
           font-size: 20rem;
           text-align: center;
           width: 80%;

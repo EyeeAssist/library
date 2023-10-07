@@ -38,11 +38,11 @@ export class CardButton {
     buttom.style.justifyContent = 'center'
     buttom.style.justifyItems = 'center'
     if(this.active) {
-      buttom.style.backgroundColor = GlobalStyle.getBackgroundColor()
-      buttom.style.color = GlobalStyle.getForegroundColor()
-    } else {
       buttom.style.backgroundColor = GlobalStyle.getForegroundColor()
-      buttom.style.color = GlobalStyle.getBackgroundColor()
+      buttom.style.color =  GlobalStyle.getBackgroundColor()
+    } else {
+      buttom.style.backgroundColor = GlobalStyle.getBackgroundColor()
+      buttom.style.color =  GlobalStyle.getForegroundColor()
     }     
     const span = document.createElement('span')
     span.textContent = this.text
@@ -62,20 +62,20 @@ export class CardButton {
     const elementCurrent = document.getElementById(this.functionalityId + '-button-eyeassist-' + this.text)
     if(this.active === false) {
       if(elementCurrent != null) {
-        elementCurrent.style.backgroundColor = GlobalStyle.getBackgroundColor()
-        elementCurrent.style.color = GlobalStyle.getForegroundColor()
+        elementCurrent.style.backgroundColor = GlobalStyle.getForegroundColor()
+        elementCurrent.style.color =  GlobalStyle.getBackgroundColor()
       }
       if(this.position == PositionButton.LEFT) {
         const oposiveElement = document.getElementById(this.functionalityId + '-button-eyeassist-' + 'No')
         if (oposiveElement!= null) {
-          oposiveElement.style.backgroundColor = GlobalStyle.getForegroundColor()
-          oposiveElement.style.color = GlobalStyle.getBackgroundColor()
+          oposiveElement.style.backgroundColor = GlobalStyle.getBackgroundColor()
+          oposiveElement.style.color =  GlobalStyle.getForegroundColor()
         }
       } else {
         const oposiveElement = document.getElementById(this.functionalityId + '-button-eyeassist-' + 'Si')
         if (oposiveElement!= null) {
-          oposiveElement.style.backgroundColor = GlobalStyle.getForegroundColor()
-          oposiveElement.style.color = GlobalStyle.getBackgroundColor()
+          oposiveElement.style.backgroundColor = GlobalStyle.getBackgroundColor()
+          oposiveElement.style.color =  GlobalStyle.getForegroundColor()
         }
       }
       this.toggleToolStatus(this.functionalityId + '-card-option-eyeassist')

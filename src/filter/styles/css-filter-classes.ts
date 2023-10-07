@@ -13,7 +13,7 @@ export class CssFilterClasses {
           border-radius: 22px;
           color: ${GlobalStyle.getForegroundColor()};
           width: 100%;
-          font-size: 22px;
+          font-size: ${GlobalStyle.getMinimumFontSize()};
           margin-top: 2rem;
         }
     `;

@@ -71,8 +71,6 @@ export class Eyeeassist {
     this.showInitMessage()
     this.showFlyMenu()
     document.addEventListener("keydown", (event) => {
-      console.log(event.key)
-      event.preventDefault()
       this.ZoomObject.activeZoom(this.ScreenReaderObject.enable(), event)
       this.ScreenReaderObject.keybindsScreenReader(event)
     })

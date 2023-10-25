@@ -7,6 +7,6 @@ export class GlobalStyle {
     return '#FFFFFF';
   }
   public static getMinimumFontSize() {
-    return '16px'
+    return '22px'
   }
 }

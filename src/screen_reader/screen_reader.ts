@@ -136,6 +136,7 @@ export class ScreenReader {
       event.key.toLowerCase() === "arrowright"
     ) {
       let selectedArticle = this.tags.shift()
+      this.selectedArticle = selectedArticle!
       this.tags.push(selectedArticle as HTMLElement)
       this.cancelTalk()
       this.readChilds(selectedArticle as Node)
@@ -173,7 +174,7 @@ export class ScreenReader {
       event.key.toLowerCase() === "enter" &&
       this.selectedLink != null
     ) {
-      console.log(this.selectedLink);
+      console.log("Click en el link", this.selectedLink);
       this.selectedLink.click();
     }
     if (
@@ -182,9 +183,10 @@ export class ScreenReader {
       event.key.toLowerCase() === "enter"
     ) {
       let links = document.getElementsByClassName("text_reader_link");
+      console.log("Leyendo link", this.selectedLink);
       console.log(links[this.linkIndex].tagName);
       this.selectedLink = links[this.linkIndex] as HTMLElement;
-      this.selectedLink.focus();
+      //this.selectedLink.focus();
 
       if (links[this.linkIndex].tagName == "TEXTAREA") {
         this.selectedLink.addEventListener("input", () => {
@@ -213,10 +215,10 @@ export class ScreenReader {
   }
   private reRead(event: KeyboardEvent) {
     if(this.useScreenReader && event.ctrlKey === true && event.key.toLowerCase() === "backspace"){
+      console.log('Re leyendo')
       if(this.selectedArticle != null) {
-        if(this.selectedArticle.textContent != null) { 
-          this.talk(this.selectedArticle.textContent);
-        }
+        this.cancelTalk()
+        this.readChilds(this.selectedArticle as Node)
       }
     }
   }

@@ -6,4 +6,7 @@ export class GlobalStyle {
   public static getForegroundColor() {
     return '#FFFFFF';
   }
+  public static getMinimumFontSize() {
+    return '22px'
+  }
 }

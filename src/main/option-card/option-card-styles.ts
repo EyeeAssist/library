@@ -67,7 +67,7 @@ export class OptionCardStyles {
           justify-items: center;
           background-color: ${GlobalStyle.getBackgroundColor()};
           width: 30%;
-          padding: 20px;
+          padding: 50px;
           border-radius: 16px;
           color: ${GlobalStyle.getForegroundColor()};
           font-size: ${GlobalStyle.getMinimumFontSize()};

@@ -115,8 +115,8 @@ export class Filter {
     colors.forEach((color) => {
                 var colorBox = document.createElement('div')
                 colorBox.style.display = 'block'
-                colorBox.style.width = '22.8px'
-                colorBox.style.height = '50.67px'
+                colorBox.style.width = '43px'
+                colorBox.style.height = '50px'
                 colorBox.style.backgroundColor = color
                 colorContainer.appendChild(colorBox)
                 })

@@ -22,7 +22,7 @@ export class ScreenReader {
     tag.src = "https://www.youtube.com/iframe_api";
     let firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-    this.videoProcesor = new VideoProcesor(false, this.talk)
+    this.videoProcesor = new VideoProcesor(false, this.talk, this.token)
   }
 
   public status(){
@@ -82,7 +82,7 @@ export class ScreenReader {
       },
       signal : this.controller.signal
     };
-    const response = await fetch('http://localhost:8000/caption', options)
+    const response = await fetch('https://eyeassist-core-production.up.railway.app/imagenes', options)
       .catch((error) => {
        if (error.name === 'AbortError') {
          console.error(error)
@@ -91,7 +91,7 @@ export class ScreenReader {
 
     if (response != undefined) {
       const description = await response.json()
-      return description.message[0]
+      return description.descripcion
     }
     return ""
   }
@@ -108,14 +108,16 @@ export class ScreenReader {
         this.talk("")
         this.talk('Imagen de '+ img.alt, false)
       } else {
-        const response = await this.getImage(img.src)
-        const blob = await response.blob();
-        this.talk('describiendo imagen', false)
-        const description = await this.getDescription(blob)
-        if (description != "") {
-          this.talk('Imagen de ' + description, false)
-        } else{
-          this.talk('No se pudo generar una descripcion para la imagen encontrada.', false)
+        if(this.token != "") {
+          const response = await this.getImage(img.src)
+          const blob = await response.blob();
+          this.talk('describiendo imagen', false)
+          const description = await this.getDescription(blob)
+          if (description != "") {
+            this.talk('Imagen de ' + description, false)
+          } else{
+            this.talk('No se pudo generar una descripcion para la imagen encontrada.', false)
+          }
         }
       }
     }
